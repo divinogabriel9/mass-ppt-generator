@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+python-pptx
+requests
+python-dotenv
+beautifulsoup4

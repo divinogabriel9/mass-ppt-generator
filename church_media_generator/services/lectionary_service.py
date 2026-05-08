@@ -5,6 +5,8 @@ import requests
 from core.liturgical_calendar import sunday_lectionary_cycle
 from services.gospel_fallback import fetch_world_english_gospel, gospel_reference_looks_like_citation_only
 from services.gospel_quote_extractor import extract_gospel_slide_quote
+from services.usccb_client import get_usccb_soup
+from services.usccb_readings import fetch_all_readings_text
 from services.usccb_scraper import fetch_gospel_text
 
 
@@ -40,9 +42,40 @@ def get_liturgical_data(date: str):
             gospel_reference = readings.get("gospel", "") or ""
             gospel_text = ""
             quote_attribution = None
+            first_reading_text = ""
+            psalm_text = ""
+            second_reading_text = ""
 
             if source_url:
-                gospel_text = (fetch_gospel_text(source_url) or "").strip()
+                blocks = fetch_all_readings_text(source_url)
+                first_reading_text = (blocks.get("first_reading") or "").strip()
+                psalm_text = (blocks.get("psalm") or "").strip()
+                second_reading_text = (blocks.get("second_reading") or "").strip()
+                gospel_text = (blocks.get("gospel") or "").strip()
+                if not gospel_text:
+                    gospel_text = (fetch_gospel_text(source_url) or "").strip()
+
+                if not (
+                    first_reading_text
+                    or psalm_text
+                    or second_reading_text
+                    or gospel_text.strip()
+                ):
+                    _page, http_err = get_usccb_soup(source_url.strip())
+                    if http_err == 403:
+                        print(
+                            "⚠️ bible.usccb.org returned HTTP 403 (often antivirus/VPN/firewall)."
+                            " Disable blocking or open USCCB in a browser to copy readings."
+                        )
+                    elif http_err:
+                        print(
+                            f"⚠️ bible.usccb.org HTTP {http_err}: readings text could not be downloaded."
+                        )
+                    else:
+                        print(
+                            "⚠️ USCCB responded but paragraphs were not extracted. "
+                            "If this persists, the page layout may have changed."
+                        )
 
             if gospel_reference_looks_like_citation_only(gospel_reference, gospel_text):
                 alt_text = fetch_world_english_gospel(gospel_reference)
@@ -65,6 +98,9 @@ def get_liturgical_data(date: str):
                 "first_reading": readings.get("firstReading", ""),
                 "psalm": readings.get("psalm", ""),
                 "second_reading": readings.get("secondReading", ""),
+                "first_reading_text": first_reading_text,
+                "psalm_text": psalm_text,
+                "second_reading_text": second_reading_text,
                 "gospel_reference": gospel_reference,
                 "gospel_text": gospel_text,
                 "gospel_slide_quote": gospel_slide_quote,

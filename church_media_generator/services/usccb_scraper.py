@@ -1,27 +1,17 @@
 import re
 
-import requests
-from bs4 import BeautifulSoup
+from services.usccb_client import USCCB_BROWSER_HEADERS, get_usccb_soup
 
-_DEFAULT_HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
-        "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-    )
-}
+# Backward compatibility with older imports
+_DEFAULT_HEADERS = USCCB_BROWSER_HEADERS
 
 
 def fetch_gospel_text(usccb_url: str):
     """Extract Gospel body text from a USCCB daily readings HTML page."""
-
     try:
-        response = requests.get(usccb_url, timeout=15, headers=_DEFAULT_HEADERS)
-
-        if response.status_code != 200:
-            print("❌ Failed to open USCCB page")
+        soup, _http = get_usccb_soup(usccb_url.strip())
+        if soup is None:
             return None
-
-        soup = BeautifulSoup(response.text, "html.parser")
 
         gospel_header = None
         for h in soup.find_all(["h2", "h3", "h4"]):
@@ -30,10 +20,8 @@ def fetch_gospel_text(usccb_url: str):
                 break
 
         if not gospel_header:
-            print("❌ Gospel section not found")
             return None
 
-        # USCCB puts the verse under <p> tags that are NOT direct siblings of the heading.
         parts = []
         for p in gospel_header.find_all_next("p", limit=50):
             t = p.get_text(" ", strip=True)
@@ -52,23 +40,20 @@ def fetch_gospel_text(usccb_url: str):
             if addr and addr.a and addr.a.get("href"):
                 return _fetch_gospel_from_pericope(addr.a["href"])
 
-            print("❌ Gospel paragraphs not found")
             return None
 
         return " ".join(parts)
 
-    except Exception as e:
-        print("Scrape error:", e)
+    except Exception:
         return None
 
 
 def _fetch_gospel_from_pericope(href: str):
     """Fallback: follow the pericope link (e.g. .../bible/john/16?29)."""
     try:
-        response = requests.get(href, timeout=15, headers=_DEFAULT_HEADERS)
-        if response.status_code != 200:
+        soup, _http = get_usccb_soup((href or "").strip())
+        if soup is None:
             return None
-        soup = BeautifulSoup(response.text, "html.parser")
         parts = []
         for p in soup.find_all("p", limit=45):
             t = p.get_text(" ", strip=True)

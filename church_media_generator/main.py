@@ -62,6 +62,13 @@ if data:
         date=date,
         quote_attribution=quote_attr,
         quote_max_chars=400,
+        gospel_full_text=gospel_text,
+        first_reading_ref=data.get("first_reading") or "",
+        first_reading_text=data.get("first_reading_text") or "",
+        psalm_ref=data.get("psalm") or "",
+        psalm_text=data.get("psalm_text") or "",
+        second_reading_ref=data.get("second_reading") or "",
+        second_reading_text=data.get("second_reading_text") or "",
     )
 
     print("✅ PowerPoint Generated!")

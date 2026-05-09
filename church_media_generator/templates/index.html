@@ -6,17 +6,20 @@
   <title>{{ title }}</title>
   <style>
     :root {
-      --bg: #f7f6f2;
-      --surface: #fff;
-      --ink: #1c1b19;
-      --muted: #5c5a55;
-      --line: #e2dfd7;
-      --accent: #3d5a4a;
-      --accent-hover: #2f4639;
-      --warn: #8a5a2b;
-      --radius: 10px;
-      --font: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --bg: #f3f4f7;
+      --surface: #ffffff;
+      --ink: #151821;
+      --muted: #5f6574;
+      --line: #e5e8ef;
+      --accent: #ff6b3d;
+      --accent-hover: #e3572d;
+      --ink-soft: #202636;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
       --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+      --shadow-lg: 0 28px 60px rgba(13, 20, 36, 0.12);
+      --shadow-md: 0 14px 36px rgba(21, 30, 52, 0.08);
     }
     * { box-sizing: border-box; }
     body {
@@ -24,40 +27,104 @@
       min-height: 100vh;
       font-family: var(--font);
       color: var(--ink);
-      background: var(--bg);
+      background:
+        radial-gradient(1200px 350px at 20% -20%, #fef5f1 0%, transparent 65%),
+        radial-gradient(900px 360px at 85% -10%, #eef2ff 0%, transparent 62%),
+        var(--bg);
       line-height: 1.45;
     }
     .wrap {
-      max-width: 560px;
+      max-width: 1140px;
       margin: 0 auto;
-      padding: 3rem 1.25rem 4rem;
+      padding: 2.25rem 1.25rem 4rem;
     }
     header {
-      margin-bottom: 2.25rem;
+      margin-bottom: 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.75rem 0.65rem 1rem;
     }
-    h1 {
-      font-size: 1.35rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      margin: 0 0 0.35rem;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      min-width: 0;
+    }
+    .brand-mark {
+      width: 1.8rem;
+      height: 1.8rem;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff9f66, #ff5f34);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+      flex-shrink: 0;
+    }
+    .brand h1 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .tagline {
       font-family: var(--sans);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       color: var(--muted);
       margin: 0;
+    }
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-shrink: 0;
     }
     .card {
       background: var(--surface);
       border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem 1rem;
+      margin-bottom: 0.9rem;
+      box-shadow: var(--shadow-md);
+    }
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 1.35rem 1.25rem;
+      box-shadow: var(--shadow-lg);
+      padding: 1.65rem 1.4rem;
       margin-bottom: 1rem;
     }
+    .hero h2 {
+      margin: 0 0 0.35rem;
+      color: var(--ink-soft);
+      font-size: 1.8rem;
+      line-height: 1.18;
+      letter-spacing: -0.02em;
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 64ch;
+      font-family: var(--sans);
+      font-size: 0.93rem;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .stack { min-width: 0; }
     label {
       display: block;
       font-family: var(--sans);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -85,8 +152,8 @@
       background: #fff;
       color: var(--ink);
     }
-    input:focus {
-      outline: 2px solid rgba(61, 90, 74, 0.35);
+    input:focus, select:focus {
+      outline: 2px solid rgba(255, 107, 61, 0.26);
       outline-offset: 1px;
     }
     .row {
@@ -103,23 +170,24 @@
       font-family: var(--sans);
       font-size: 0.875rem;
       font-weight: 600;
-      padding: 0.55rem 1rem;
-      border-radius: 6px;
-      border: none;
+      padding: 0.62rem 1.05rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
       cursor: pointer;
-      transition: background 0.15s ease;
+      transition: all 0.15s ease;
     }
     button.primary {
       background: var(--accent);
       color: #fff;
+      box-shadow: 0 8px 18px rgba(255, 107, 61, 0.28);
     }
     button.primary:hover { background: var(--accent-hover); }
     button.secondary {
-      background: transparent;
-      color: var(--accent);
+      background: #fff;
+      color: var(--ink-soft);
       border: 1px solid var(--line);
     }
-    button.secondary:hover { border-color: var(--accent); }
+    button.secondary:hover { border-color: #cfd6e3; background: #fafbfd; }
     button:disabled {
       opacity: 0.45;
       cursor: not-allowed;
@@ -207,7 +275,7 @@
     }
     #downloads.visible { display: block; }
     #downloads a {
-      color: var(--accent);
+      color: #d04c24;
       font-weight: 600;
       margin-right: 1rem;
     }
@@ -256,91 +324,127 @@
       font-size: 0.8rem;
       max-width: 100%;
     }
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+      .hero h2 { font-size: 1.52rem; }
+    }
+    @media (max-width: 620px) {
+      .wrap { padding: 1.25rem 0.8rem 3rem; }
+      header { border-radius: 14px; }
+      .brand h1 { font-size: 0.9rem; }
+      .top-actions { display: none; }
+      .hero { padding: 1.2rem 1rem; }
+      .hero h2 { font-size: 1.34rem; }
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1>Church Media Generator</h1>
-      <p class="tagline">Mass slides & poster from the lectionary</p>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <h1>Church Media Generator</h1>
+      </div>
+      <div class="top-actions">
+        <p class="tagline">Mass slides & poster from the lectionary</p>
+      </div>
     </header>
 
-    <div class="card" id="logo-card">
-      <label>Church logo (poster)</label>
-      <p class="tagline" style="margin: 0 0 0.5rem;">Upload a PNG, JPEG, WebP, or GIF. It is saved to the server and used on the generated poster.</p>
-      <div class="logo-row">
-        <input type="file" id="logo-file" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" />
-        <button type="button" class="secondary" id="btn-upload-logo">Upload logo</button>
+    <section class="hero">
+      <h2>Build polished Mass slides faster, with fewer manual steps.</h2>
+      <p>Load lectionary readings, pick complete hymn lyrics, and generate your PowerPoint + poster bundle in one flow. All controls stay available below.</p>
+    </section>
+
+    <div class="layout">
+      <div class="stack">
+        <div class="card">
+          <p class="tagline" style="margin: 0 0 0.6rem;">Mass workflow</p>
+          <div class="row">
+            <label for="mass-date">Mass date</label>
+            <input type="date" id="mass-date" name="date" required />
+          </div>
+          <div class="row">
+            <label for="celebrant">Celebrant</label>
+            <input type="text" id="celebrant" name="celebrant" placeholder="Name" autocomplete="name" required />
+          </div>
+          <div class="row">
+            <label for="church-name">Church name (top-left on every slide)</label>
+            <input type="text" id="church-name" name="church_name" placeholder="Parish or community name" maxlength="240" />
+          </div>
+          <div class="actions">
+            <button type="button" class="secondary" id="btn-preview">Load readings</button>
+            <button type="button" class="primary" id="btn-generate">Generate</button>
+          </div>
+          <p id="status" aria-live="polite"></p>
+        </div>
+
+        <div class="card" id="preview-panel">
+          <p class="preview-title" id="pv-title"></p>
+          <p class="meta" id="pv-gospel"></p>
+          <p class="meta" id="pv-season"></p>
+          <p class="meta" id="pv-color"></p>
+          <div id="sentences-block">
+            <label>Slide excerpt (sentence)</label>
+            <div id="sentences-list"></div>
+          </div>
+          <div id="songs-block">
+            <label>Hymns — choose one per section (lyrics from library → slides)</label>
+            <p class="meta" style="margin:0 0 0.75rem;">Load readings first to refresh suggestions for this liturgical season. Pick from 3–5 options per section; Communion uses two songs.</p>
+            <div class="row">
+              <label for="sel-entrance">Entrance</label>
+              <select id="sel-entrance"><option value="">— Default placeholder —</option></select>
+            </div>
+            <div class="row">
+              <label for="sel-offertory">Offertory</label>
+              <select id="sel-offertory"><option value="">— Default placeholder —</option></select>
+            </div>
+            <div class="row">
+              <label for="sel-communion-1">Communion (first)</label>
+              <select id="sel-communion-1"><option value="">— Default placeholder —</option></select>
+            </div>
+            <div class="row">
+              <label for="sel-communion-2">Communion (second)</label>
+              <select id="sel-communion-2"><option value="">— Default placeholder —</option></select>
+            </div>
+            <div class="row">
+              <label for="sel-recessional">Recessional</label>
+              <select id="sel-recessional"><option value="">— Default placeholder —</option></select>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="downloads">
+          <p style="margin:0 0 0.35rem; font-family: var(--sans); font-size: 0.88rem;">Downloads</p>
+          <div class="row-dl" id="dl-zip-row" style="display:none;">
+            <a href="#" id="dl-zip" class="primary-dl" download>PowerPoint + poster (ZIP)</a>
+          </div>
+          <div class="row-dl">
+            <a href="#" id="dl-pptx" download>PowerPoint only</a>
+            <a href="#" id="dl-poster" download>Poster (PNG)</a>
+          </div>
+        </div>
       </div>
-      <p id="logo-status" style="font-family:var(--sans);font-size:0.82rem;margin:0.5rem 0 0;min-height:1.2em;" aria-live="polite"></p>
-      <div class="logo-preview" id="logo-preview-wrap"></div>
+
+      <aside class="stack">
+        <div class="card" id="logo-card">
+          <label>Church logo (poster)</label>
+          <p class="tagline" style="margin: 0 0 0.5rem;">Upload a PNG, JPEG, WebP, or GIF. It is saved to the server and used on the generated poster.</p>
+          <div class="logo-row">
+            <input type="file" id="logo-file" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" />
+            <button type="button" class="secondary" id="btn-upload-logo">Upload logo</button>
+          </div>
+          <p id="logo-status" style="font-family:var(--sans);font-size:0.82rem;margin:0.5rem 0 0;min-height:1.2em;" aria-live="polite"></p>
+          <div class="logo-preview" id="logo-preview-wrap"></div>
+        </div>
+        <div class="card">
+          <p class="tagline" style="margin: 0;">Tips</p>
+          <p class="meta" style="margin-top:0.5rem;">1) Load readings first to get hymn suggestions.</p>
+          <p class="meta" style="margin-top:0.35rem;">2) Choose full-song hymn entries for complete lyric slides.</p>
+          <p class="meta" style="margin-top:0.35rem;">3) Generate to download PPT + poster bundle.</p>
+        </div>
+      </aside>
     </div>
 
-    <div class="card">
-      <div class="row">
-        <label for="mass-date">Mass date</label>
-        <input type="date" id="mass-date" name="date" required />
-      </div>
-      <div class="row">
-        <label for="celebrant">Celebrant</label>
-        <input type="text" id="celebrant" name="celebrant" placeholder="Name" autocomplete="name" required />
-      </div>
-      <div class="row">
-        <label for="church-name">Church name (top-left on every slide)</label>
-        <input type="text" id="church-name" name="church_name" placeholder="Parish or community name" maxlength="240" />
-      </div>
-      <div class="actions">
-        <button type="button" class="secondary" id="btn-preview">Load readings</button>
-        <button type="button" class="primary" id="btn-generate">Generate</button>
-      </div>
-      <p id="status" aria-live="polite"></p>
-    </div>
-
-    <div class="card" id="preview-panel">
-      <p class="preview-title" id="pv-title"></p>
-      <p class="meta" id="pv-gospel"></p>
-      <p class="meta" id="pv-season"></p>
-      <p class="meta" id="pv-color"></p>
-      <div id="sentences-block">
-        <label>Slide excerpt (sentence)</label>
-        <div id="sentences-list"></div>
-      </div>
-      <div id="songs-block">
-        <label>Hymns — choose one per section (lyrics from library → slides)</label>
-        <p class="meta" style="margin:0 0 0.75rem;">Load readings first to refresh suggestions for this liturgical season. Pick from 3–5 options per section; Communion uses two songs.</p>
-        <div class="row">
-          <label for="sel-entrance">Entrance</label>
-          <select id="sel-entrance"><option value="">— Default placeholder —</option></select>
-        </div>
-        <div class="row">
-          <label for="sel-offertory">Offertory</label>
-          <select id="sel-offertory"><option value="">— Default placeholder —</option></select>
-        </div>
-        <div class="row">
-          <label for="sel-communion-1">Communion (first)</label>
-          <select id="sel-communion-1"><option value="">— Default placeholder —</option></select>
-        </div>
-        <div class="row">
-          <label for="sel-communion-2">Communion (second)</label>
-          <select id="sel-communion-2"><option value="">— Default placeholder —</option></select>
-        </div>
-        <div class="row">
-          <label for="sel-recessional">Recessional</label>
-          <select id="sel-recessional"><option value="">— Default placeholder —</option></select>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" id="downloads">
-      <p style="margin:0 0 0.35rem; font-family: var(--sans); font-size: 0.88rem;">Downloads</p>
-      <div class="row-dl" id="dl-zip-row" style="display:none;">
-        <a href="#" id="dl-zip" class="primary-dl" download>PowerPoint + poster (ZIP)</a>
-      </div>
-      <div class="row-dl">
-        <a href="#" id="dl-pptx" download>PowerPoint only</a>
-        <a href="#" id="dl-poster" download>Poster (PNG)</a>
-      </div>
-    </div>
   </div>
 
   <script>

@@ -1,6 +1,6 @@
 # Development tracker
 
-_Last updated: 2026-05-09 — Phase 2 complete + Phase 3 kickstarted._
+_Last updated: 2026-05-09 — UI refresh + hymn slide polish._
 
 How to read this: **✅** = implemented in the current codebase in a useful form. **⬜** = not built yet (or only a stub / placeholder).
 
@@ -46,7 +46,7 @@ How to read this: **✅** = implemented in the current codebase in a useful form
 | Item | Status |
 |------|--------|
 | Full Mass slide flow | ✅ (GFCC-style flow: `gfcc_flow_content.py` + generator) |
-| Lyrics slides | ⬜ (hymn *placeholders* exist; not a lyrics library or full song slides) |
+| Lyrics slides | ✅ (library-backed full-song lyrics with dedicated hymn slide styling, section picks in web UI) |
 | Prayer database | ⬜ (fixed text blocks / Missal placeholders; not a queryable DB) |
 | Multilingual toggle | ⬜ |
 
@@ -68,6 +68,8 @@ How to read this: **✅** = implemented in the current codebase in a useful form
 
 - **CLI** — `main.py`.
 - **Web app** — UI + `/api/preview`, `/api/generate`, ZIP includes PPT, poster, social PNGs, `gospel_moment.png` when present.
+- **UI polish** — modern SaaS-style card layout in `templates/index.html` while preserving all workflow buttons.
+- **Hymn projection tuning** — centered, adaptive lyric sizing and balanced logo/name branding in `generators/powerpoint.py`.
 - **Gospel excerpt logic** — `gospel_quote_extractor`.
 - **Generate options (JSON)** — `poster_template`, `include_social_exports`, `include_gospel_art`.
 

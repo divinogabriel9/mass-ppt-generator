@@ -43,7 +43,7 @@ _FOOTER_PT = 13
 _MAX_CHARS_READING = 900
 _MAX_MARKED_BODY = 2600
 # Hymn / lyrics slides (black screen, gold title, white ALL CAPS body — projector style)
-_LYRIC_CHUNK = 520
+_LYRIC_CHUNK = 360
 _LYRIC_TITLE_DISPLAY_PT = 34
 _LYRIC_BODY_DISPLAY_PT = 38
 _HYMN_BG = RGBColor(0, 0, 0)
@@ -54,8 +54,8 @@ _HYMN_FOOTER_MUTED = RGBColor(140, 140, 145)
 _HYMN_TITLE_FONT = "Georgia"
 _HYMN_BODY_FONT = "Arial Black"
 _BRAND_BAND = Inches(1.05)
-_LOGO_MAX_W = Inches(1.35)
-_LOGO_MAX_H = Inches(0.82)
+_LOGO_MAX_W = Inches(0.95)
+_LOGO_MAX_H = Inches(0.42)
 _COMMUNITY_HEADER_PT = 15
 
 _PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -140,11 +140,12 @@ def _apply_slide_branding(slide, theme: SlideTheme) -> None:
         cursor_left = pic.left + pic.width + Inches(0.14)
 
     name_w = SLIDE_WIDTH - cursor_left - MARGIN_SIDE
-    nb = slide.shapes.add_textbox(cursor_left, top, name_w, Inches(0.95))
+    nb = slide.shapes.add_textbox(cursor_left, top, name_w, _LOGO_MAX_H)
     tf = nb.text_frame
     _prep_tf(tf)
     tf.clear()
     tf.word_wrap = True
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
     p0 = tf.paragraphs[0]
     p0.text = name
     _style_para(p0, size_pt=_COMMUNITY_HEADER_PT, color=theme.primary, bold=True)
@@ -165,11 +166,12 @@ def _apply_hymn_branding(slide) -> None:
             pic.height = int(pic.height * scale)
         cursor_left = pic.left + pic.width + Inches(0.14)
     name_w = SLIDE_WIDTH - cursor_left - MARGIN_SIDE
-    nb = slide.shapes.add_textbox(cursor_left, top, name_w, Inches(0.95))
+    nb = slide.shapes.add_textbox(cursor_left, top, name_w, _LOGO_MAX_H)
     tf = nb.text_frame
     _prep_tf(tf)
     tf.clear()
     tf.word_wrap = True
+    tf.vertical_anchor = MSO_ANCHOR.MIDDLE
     p0 = tf.paragraphs[0]
     p0.text = name
     _style_para(p0, size_pt=_COMMUNITY_HEADER_PT, color=_HYMN_BRAND_WHITE, bold=True)
@@ -408,31 +410,39 @@ def _chunk_lyrics_display(text: str, limit: int = _LYRIC_CHUNK) -> List[str]:
 
 def _fill_hymn_body_caps(tf, chunk: str) -> None:
     """Centered ALL CAPS bold sans-serif (white on black)."""
+    lines = [ln.strip() for ln in chunk.split("\n") if ln.strip()]
+    longest = max((len(ln) for ln in lines), default=0)
+    line_count = len(lines)
+    size_pt = _LYRIC_BODY_DISPLAY_PT
+    if line_count >= 10 or longest >= 42:
+        size_pt = 34
+    if line_count >= 12 or longest >= 50:
+        size_pt = 30
+    if line_count >= 14 or longest >= 56:
+        size_pt = 27
+
     tf.clear()
     first = True
-    for line in chunk.split("\n"):
-        raw = line.strip()
-        if not raw:
-            continue
+    for raw in lines:
         p = tf.paragraphs[0] if first else tf.add_paragraph()
         first = False
         p.text = raw.upper()
         _style_para(
             p,
-            size_pt=_LYRIC_BODY_DISPLAY_PT,
+            size_pt=size_pt,
             color=_HYMN_BODY_WHITE,
             bold=True,
             font_name=_HYMN_BODY_FONT,
         )
         p.alignment = PP_ALIGN.CENTER
-        p.space_after = Pt(14)
-        p.line_spacing = 1.15
+        p.space_after = Pt(10 if size_pt >= 34 else 8)
+        p.line_spacing = 1.05
     if first:
         p = tf.paragraphs[0]
         p.text = (chunk or "").strip().upper()
         _style_para(
             p,
-            size_pt=_LYRIC_BODY_DISPLAY_PT,
+            size_pt=size_pt,
             color=_HYMN_BODY_WHITE,
             bold=True,
             font_name=_HYMN_BODY_FONT,
@@ -489,7 +499,7 @@ def _add_hymn_lyric_slides(
     tfb = body_box.text_frame
     _prep_tf(tfb)
     tfb.word_wrap = True
-    tfb.vertical_anchor = MSO_ANCHOR.TOP
+    tfb.vertical_anchor = MSO_ANCHOR.MIDDLE
     _fill_hymn_body_caps(tfb, first_chunk)
     _add_hymn_footer(slide0, footer_section)
 

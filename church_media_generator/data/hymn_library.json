@@ -1,0 +1,186 @@
+{
+  "entrance": [
+    {
+      "id": "sing_new_song",
+      "title": "Sing a New Song",
+      "seasons": [
+        "ordinary_time",
+        "easter"
+      ],
+      "lyrics": "REFRAIN:\nSing a new song unto the Lord,\nlet your song be sung from mountains high.\nSing a new song unto the Lord,\nsinging alleluia.\n\nYahweh's people dance for joy.\nO come before the Lord,\nand play for him on glad tambourines\nand let your trumpet sound.\n\nREFRAIN\n\nRise, O rise, in splendor:\ndarkness now dissolves away,\nas all creation joins to say,\n\"Alleluia!\"\n\nREFRAIN\n\nPraise to Yahweh, light of dawn,\nrock and fortress, saving Son,\nfrom the slave land let us run,\nsinging alleluia.\n\nREFRAIN"
+    },
+    {
+      "id": "all_creatures",
+      "title": "All Creatures of Our God and King",
+      "seasons": [
+        "ordinary_time",
+        "easter"
+      ],
+      "lyrics": "All creatures of our God and King,\nlift up your voice and with us sing\nAlleluia, alleluia!\n\nThou burning sun with golden beam,\nthou silver moon with softer gleam,\nO praise him, O praise him,\nalleluia, alleluia, alleluia!\n\nThou rushing wind that art so strong,\nye clouds that sail in heav'n along,\nO praise him, alleluia!\n\nThou rising morn, in praise rejoice,\nye lights of evening, find a voice,\nO praise him, O praise him,\nalleluia, alleluia, alleluia!\n\nThou flowing water, pure and clear,\nmake music for thy Lord to hear,\nAlleluia, alleluia!\n\nWhatsoever folk there be\nwho hold high spring in dignity,\nO praise him, alleluia!\n\nAnd all ye men of tender heart,\nforgiving others, take your part,\nO sing ye, alleluia!\n\nYe who long pain and sorrow bear,\npraise God and on him cast your care,\nO praise him, alleluia!\n\nLet all things their Creator bless,\nand worship him in humbleness,\nO praise him, alleluia!\n\nOh, praise the Father, praise the Son,\nand praise the Spirit, three in one,\nO praise him, alleluia!"
+    },
+    {
+      "id": "here_i_am",
+      "title": "Here I Am, Lord",
+      "seasons": [
+        "ordinary_time"
+      ],
+      "lyrics": "I, the Lord of sea and sky,\nI have heard my people cry.\nAll who dwell in dark and sin,\nmy hand will save.\n\nI who made the stars of night,\nI will make their darkness bright.\nWho will bear my light to them?\nWhom shall I send?\n\nHere I am, Lord.\nIs it I, Lord?\nI have heard you calling in the night.\nI will go, Lord,\nif you lead me.\nI will hold your people in my heart.\n\nI, the Lord of snow and rain,\nI have borne my people's pain.\nI have wept for love of them,\nthey turn away.\n\nI will break their hearts of stone,\ngive them hearts for love alone.\nI will speak my word to them.\nWhom shall I send?\n\nHere I am, Lord.\nIs it I, Lord?\nI have heard you calling in the night.\nI will go, Lord,\nif you lead me.\nI will hold your people in my heart.\n\nI, the Lord of wind and flame,\nI will tend the poor and lame.\nI will set a feast for them.\nMy hand will save.\n\nFinest bread I will provide\ntill their hearts be satisfied.\nI will give my life to them.\nWhom shall I send?\n\nHere I am, Lord.\nIs it I, Lord?\nI have heard you calling in the night.\nI will go, Lord,\nif you lead me.\nI will hold your people in my heart."
+    },
+    {
+      "id": "glory_praise",
+      "title": "Glory and Praise to Our God",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Glory and praise to our God,\nwho alone gives light to our days.\nMany are the blessings\nhe bears to those who trust in his ways.\n\nWe the daughters and sons of him\nwho built the valleys and plains,\npraise the wonders our God has done,\nwhose mother is over all.\n\nRemember the works of our God,\nfrom the heavens, the earth, and the sea.\nAll who dwell on the earth,\nsing praise for his marvelous deeds.\n\nGlory and praise to our God,\nwhile his people their homage proclaim.\nHe has poured out his love,\nand has shown us the strength of his hand.\n\nFaithful Father, we come to you:\nheal your children, remember your care.\nYou deliver your own from sin;\nwe will sing of your mercy for all."
+    },
+    {
+      "id": "joyful_joyful",
+      "title": "Joyful, Joyful, We Adore Thee",
+      "seasons": [
+        "easter",
+        "ordinary_time"
+      ],
+      "lyrics": "Joyful, joyful, we adore thee,\nGod of glory, Lord of love;\nhearts unfold like flowers before thee,\nhailing thee, the sun above.\n\nMelt the clouds of sin and sadness,\ndrive the dark of doubt away;\ngiver of immortal gladness,\nfill us with the light of day.\n\nAll thy works with joy surround thee,\nearth and heav'n reflect thy rays,\nstars and angels sing around thee,\ncenter of unbroken praise.\n\nField and forest, vale and mountain,\nflowery meadow, flashing sea,\nchanting bird and flowing fountain,\ncall us to rejoice in thee.\n\nThou art giving and forgiving,\never blessing, ever blest,\nwell-spring of the joy of living,\nocean depth of happy rest!\n\nThou our Father, Christ our brother—\nall who live in love are thine;\nteach us how to love each other,\nlift us to the joy divine.\n\nMortals, join the mighty chorus,\nwhich the morning stars began;\nlove divine is reigning o'er us,\nleading to the light of man.\n"
+    }
+  ],
+  "offertory": [
+    {
+      "id": "christify",
+      "title": "Christify",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "CHRISTIFY THE GIFTS WE BRING TO YOU\nBOUNTY OF THE EARTH RECEIVE ANEW\nTAKE AND BLESS THE WORK OF OUR HANDS\nCHRISTIFY THESE GIFTS AT YOUR COMMAND\n\nRain and sunshine, seed and soil,\ndraw from us this offering toil.\nMake us worthy of your name\nas we share your bread and wine.\n\nCHRISTIFY THE GIFTS WE BRING TO YOU\nBOUNTY OF THE EARTH RECEIVE ANEW\nTAKE AND BLESS THE WORK OF OUR HANDS\nCHRISTIFY THESE GIFTS AT YOUR COMMAND\n\nBless us this day that we may prove\nworthy of the life we have in you.\nMake us your living body here,\nbringing your love to all we meet.\n\nCHRISTIFY THE GIFTS WE BRING TO YOU\nBOUNTY OF THE EARTH RECEIVE ANEW\nTAKE AND BLESS THE WORK OF OUR HANDS\nCHRISTIFY THESE GIFTS AT YOUR COMMAND"
+    },
+    {
+      "id": "take_o_take",
+      "title": "Take, O Take Me As I Am",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Take, O take me as I am,\nrecreate the heart of clay;\nshape a new life in your pattern,\nWord of God, I humbly pray.\n\nSummon out whom I should serve;\ngive me courage, strength and nerve;\nbid me act the love I praise,\nall my busy, bustling days.\n\nTake the work my hands can offer;\ntake the loaves, the work of art;\ntake myself—each part I proffer—\ntake, O Lord, my broken heart.\n\nTake my life as wine outpoured:\ndrink from the fruit of every field.\nTake my love—I am your harp,\ntake my song, let your tune be heard.\n\nTake, O take me as I am,\nrecreate the heart of clay;\nshape a new life in your pattern,\nGod of love, I humbly pray."
+    },
+    {
+      "id": "gift_finest_wheat",
+      "title": "Gift of Finest Wheat",
+      "seasons": [
+        "ordinary_time"
+      ],
+      "lyrics": "You satisfy the hungry heart\nwith gift of finest wheat,\ncome give to us, O saving Lord,\nthe bread of life to eat.\n\nAs when the grain by saints believed\nwas blessed and broken, Lord,\nso may your Church in lands today\nbe fed, your praise restored.\n\nO Lord of harvest, grant that we\nwho share this mystery here\nmay follow you unceasingly\nin praise, in love, in fear.\n\nOne bread, one cup, one life, one Lord—\nwe offer, Christ, to you;\nuntil we share your banquet board\nwhere all the world is new."
+    },
+    {
+      "id": "bread_of_life_offertory",
+      "title": "I Am the Bread of Life",
+      "seasons": [
+        "ordinary_time",
+        "easter"
+      ],
+      "lyrics": "I am the Bread of life;\nall who come to me shall not hunger,\nand who believe in me shall not thirst.\nNo one can come to me unless\nmy Father beckons.\n\nAnd I will raise them up,\nand I will raise them up,\nand I will raise them up on the last day.\n\nThe bread that I will give\nis my flesh for the life of the world\nand if you eat of this bread,\nyou shall live forever,\nyes, live forever.\n\nUnless you eat\nof the flesh of the Son of Man\nand drink of his blood,\nand drink of his blood,\nthere is no life in you,\nthere is no life in you.\n\nAnd I will raise them up,\nand I will raise them up,\nand I will raise them up on the last day."
+    },
+    {
+      "id": "one_bread_offertory",
+      "title": "One Bread, One Body",
+      "seasons": [
+        "ordinary_time"
+      ],
+      "lyrics": "One bread, one body, one Lord of all,\none cup of blessing which we bless.\nAnd we, though many, throughout the earth,\nwe are one body in this one Lord.\n\nGentile or Jew, servant or free,\nwoman or man, no more.\n\nMany the gifts, many the works,\nmany the ways we serve;\nmany the moments, many the hours,\nmany the talents shared.\n\nOne bread, one body, one Lord of all,\none cup of blessing which we bless.\nAnd we, though many, throughout the earth,\nwe are one body in this one Lord."
+    }
+  ],
+  "communion": [
+    {
+      "id": "taste_and_see",
+      "title": "Taste and See",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Taste and see the goodness of the Lord,\ntaste and see the goodness of the Lord.\n\nI will bless the Lord at all times,\nhis praise shall be always in my mouth.\n\nTaste and see the goodness of the Lord,\ntaste and see the goodness of the Lord.\n\nGlorify the Lord with me,\nlet us exalt his name together.\n\nTaste and see the goodness of the Lord,\ntaste and see the goodness of the Lord.\n\nLook to him that you may be radiant with joy,\nand your souls shall find their joy in him.\n\nTaste and see the goodness of the Lord,\ntaste and see the goodness of the Lord."
+    },
+    {
+      "id": "one_bread_communion",
+      "title": "One Bread, One Body",
+      "seasons": [
+        "ordinary_time"
+      ],
+      "lyrics": "One bread, one body, one Lord of all,\none cup of blessing which we bless.\nAnd we, though many, throughout the earth,\nwe are one body in this one Lord.\n\nGentile or Jew, servant or free,\nwoman or man, no more.\n\nMany the gifts, many the works,\nmany the ways we serve.\nMany the moments, many the hours,\nmany the talents shared.\n\nOne bread, one body, one Lord of all,\none cup of blessing which we bless.\nAnd we, though many, throughout the earth,\nwe are one body in this one Lord."
+    },
+    {
+      "id": "bread_of_life_comm_1",
+      "title": "I Am the Bread of Life",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "I am the Bread of life;\nall who come to me shall not hunger,\nand who believe in me shall not thirst.\nNo one can come to me unless\nmy Father beckons.\n\nAnd I will raise them up,\nand I will raise them up,\nand I will raise them up on the last day.\n\nThe bread that I will give\nis my flesh for the life of the world\nand if you eat of this bread,\nyou shall live forever,\nyes, live forever.\n\nUnless you eat\nof the flesh of the Son of Man\nand drink of his blood,\nand drink of his blood,\nthere is no life in you,\nthere is no life in you.\n\nAnd I will raise them up,\nand I will raise them up,\nand I will raise them up on the last day."
+    },
+    {
+      "id": "eat_this_bread",
+      "title": "Eat This Bread",
+      "seasons": [
+        "ordinary_time",
+        "easter"
+      ],
+      "lyrics": "Eat this bread,\ndrink this cup,\ncome to me and never be hungry.\nEat this bread,\ndrink this cup,\ntrust in me and you will not thirst.\n\nIf you eat this bread,\nif you drink this cup,\nyou will have eternal life, eternal life.\n\nEat this bread,\ndrink this cup,\ncome to me and never be hungry.\nEat this bread,\ndrink this cup,\ntrust in me and you will not thirst.\n\nCome! Come! Come to the feast of life.\nCome! Come! Come to the Father's table.\n\nEat this bread,\ndrink this cup,\ncome to me and never be hungry.\nEat this bread,\ndrink this cup,\ntrust in me and you will not thirst."
+    },
+    {
+      "id": "table_of_plenty",
+      "title": "Table of Plenty",
+      "seasons": [
+        "ordinary_time"
+      ],
+      "lyrics": "Come to the feast of the Lord;\ncome to the table of plenty.\nGod will provide for all that we need,\nhere at the table of plenty.\n\nO come and sit at my table,\nfor here you will comfort the poor,\nand with the hungry share humble fare:\ncome and know life forevermore.\n\nO how abundant the welcome\nthat God has prepared for the least:\nlet all who are lonely and lost be restored\nat this table of love.\n\nCome to the feast of the Lord;\ncome to the table of plenty.\nGod will provide for all that we need,\nhere at the table of plenty.\n\nThis is the bread of rememberance,\nthe cup of the covenant poured.\nTaste and see how the Father adores:\nwe are his own."
+    },
+    {
+      "id": "panis_angelicus",
+      "title": "Panis Angelicus",
+      "seasons": [
+        "ordinary_time",
+        "easter"
+      ],
+      "lyrics": "Panis angelicus\nfit panis hominum;\ndat panis caelicus\nfiguris terminum.\n\nO res mirabilis!\nManducat Dominum\npauper, servus et humilis.\n\nTe trina Deitas\nunaque poscimus,\nsic nos tu visita,\nsicut te colimus.\n\nPer huius viam ductus\ntendimus ad lucem,\nquam in habitatione\nsancta tu inhabitas.\n\n(English singing translation, if used:\nBread of angels, become bread for mortals;\nthis heavenly bread ends our symbols.\nO wondrous thing! The poor, lowly servant eats the Lord.)"
+    }
+  ],
+  "recessional": [
+    {
+      "id": "we_are_called",
+      "title": "We Are Called",
+      "seasons": [
+        "ordinary_time"
+      ],
+      "lyrics": "We are called to act with justice,\nwe are called to love tenderly;\nwe are called to serve one another,\nto walk humbly with God.\n\nCome! live in the light!\nShine with the joy and the love of the Lord!\n\nGod of daybreak, God of shadow,\ncome into our restless lives;\nlift from us the fear of shadows,\nthat we may arise with light.\n\nWe are called to act with justice...\n\nCome! live in the light!...\n\nGod of newness, God of freshness,\ncome into our morning song:\ngive to us a new beginning,\nsend us forth with hearts made strong.\n\nWe are called to act with justice...\n\nCome! live in the light!..."
+    },
+    {
+      "id": "go_make",
+      "title": "Go Make a Difference",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Go make a difference;\nwe can make a difference\nin the name of the Lord.\n\nWe are sent in the power of love,\nbearing peace like a pure, holy dove\nto every nation, every land.\nGo make a difference.\n\nGo make a difference;\nwe can make a difference\nin the name of the Lord.\n\nWe are the salt of the earth,\ncalled to give the world a new taste:\nlove, justice, mercy, and praise.\nGo make a difference.\n\nGo make a difference;\nwe can make a difference\nin the name of the Lord.\n\nWe are a light on the hill,\nmay our good deeds shine, Lord, until\nall know your kingdom is near.\nGo make a difference."
+    },
+    {
+      "id": "city_of_god",
+      "title": "City of God",
+      "seasons": [
+        "ordinary_time"
+      ],
+      "lyrics": "Let us build the city of God,\nmay our tears be turned into dancing;\nfor the Lord, our light and our love,\nhas turned the night into day.\n\nWe are called to be the salt for the earth,\ncalled to be the light for a world in need.\nSo before you, Lord, we bend in trust,\nand we'll lift our hands in truth.\n\nLet us build the city of God...\n\nBlessed are the poor in spirit,\nwe are yours and we shall reign with you.\nBlessed are those who mourn,\nyour comfort shall be their strength.\n\nLet us build the city of God...\n\nWhen we love with hearts forgiving,\nwe are blessed and we shall know your peace.\nWhen we bring good news to the poor,\nyour salvation shall be our joy.\n\nLet us build the city of God..."
+    },
+    {
+      "id": "alleluia_sing",
+      "title": "Alleluia! Sing to Jesus",
+      "seasons": [
+        "easter",
+        "ordinary_time"
+      ],
+      "lyrics": "Alleluia! Sing to Jesus!\nHis the scepter, his the throne;\nalleluia! His the triumph,\nhis the victory alone.\n\nHark! the songs of peaceful Zion\nthunder like a mighty flood;\nJesus out of every nation\nhath redeemed us by his blood.\n\nAlleluia! Not as orphans\nare we left in sorrow sore;\none with love exceeding father,\none with love exceeding mother,\nhe hath gone before.\n\nAlleluia! Bread of angels,\nthou on earth our food, our stay;\nalleluia! here the sinful\nto thy presence sing alway.\n\nAlleluia! King eternal,\nthou the Lord whom we adore;\nalleluia! Son and Father,\nHoly Spirit, one forevermore,\nwe would bow before.\n\nAlleluia! Sing to Jesus!\nHis the scepter, his the throne;\nalleluia! His the triumph,\nhis the victory alone."
+    },
+    {
+      "id": "lead_me_lord",
+      "title": "Lead Me, Lord",
+      "seasons": [
+        "lent",
+        "ordinary_time"
+      ],
+      "lyrics": "Lead me, Lord, lead me in thy righteousness,\nmake thy way plain before my face.\n\nFor it is thou, Lord, thou, Lord only,\nthat makest me dwell in safety.\n\nGuide me, Lord, guide me when I am weary,\nbe my strength when shadows fall.\n\nTurn my heart to thy holy word,\nbe my keeper, be my Lord.\n\nLead me, Lord, lead me in thy righteousness,\nmake thy way plain before my face.\n\nIn thy light we see light;\nin thy truth we find our way.\nBe our refuge and our fortress,\nbe our strength from day to day.\n\nLead me, Lord, lead me in thy righteousness,\nmake thy way plain before my face."
+    }
+  ]
+}

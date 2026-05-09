@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}</title>
+  <style>
+    :root {
+      --bg: #f7f6f2;
+      --surface: #fff;
+      --ink: #1c1b19;
+      --muted: #5c5a55;
+      --line: #e2dfd7;
+      --accent: #3d5a4a;
+      --accent-hover: #2f4639;
+      --warn: #8a5a2b;
+      --radius: 10px;
+      --font: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.45;
+    }
+    .wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+    }
+    header {
+      margin-bottom: 2.25rem;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin: 0 0 0.35rem;
+    }
+    .tagline {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    select {
+      width: 100%;
+      font: inherit;
+      font-size: 0.95rem;
+      padding: 0.5rem 0.55rem;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+    }
+    input[type="text"],
+    input[type="date"] {
+      width: 100%;
+      font: inherit;
+      font-size: 1rem;
+      padding: 0.55rem 0.65rem;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--ink);
+    }
+    input:focus {
+      outline: 2px solid rgba(61, 90, 74, 0.35);
+      outline-offset: 1px;
+    }
+    .row {
+      margin-bottom: 1rem;
+    }
+    .row:last-child { margin-bottom: 0; }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.1rem;
+    }
+    button {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    button.primary:hover { background: var(--accent-hover); }
+    button.secondary {
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--line);
+    }
+    button.secondary:hover { border-color: var(--accent); }
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+    #preview-panel {
+      display: none;
+      font-family: var(--sans);
+      font-size: 0.88rem;
+    }
+    #preview-panel.visible { display: block; }
+    .preview-title {
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 0.75rem;
+      line-height: 1.3;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 0.82rem;
+      margin-bottom: 0.35rem;
+    }
+    .swatch {
+      display: inline-block;
+      width: 0.85rem;
+      height: 0.85rem;
+      border-radius: 2px;
+      vertical-align: middle;
+      margin-right: 0.35rem;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    #sentences-block {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+    #sentences-block.visible { display: block; }
+    #songs-block {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+    #songs-block.visible { display: block; }
+    #songs-block ul {
+      margin: 0.35rem 0 0;
+      padding-left: 1.1rem;
+      font-family: var(--sans);
+      font-size: 0.84rem;
+      color: var(--ink);
+    }
+    #songs-block li { margin-bottom: 0.25rem; }
+    #songs-block .src {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+    .choice {
+      margin-bottom: 0.45rem;
+    }
+    .choice input { margin-right: 0.4rem; vertical-align: middle; }
+    .choice label {
+      display: inline;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 0.88rem;
+      color: var(--ink);
+    }
+    #status {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      margin-top: 1rem;
+      min-height: 1.2em;
+    }
+    #status.error, #logo-status.error { color: #8b2942; }
+    #status.ok, #logo-status.ok { color: var(--accent); }
+    #downloads {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-family: var(--sans);
+      font-size: 0.88rem;
+    }
+    #downloads.visible { display: block; }
+    #downloads a {
+      color: var(--accent);
+      font-weight: 600;
+      margin-right: 1rem;
+    }
+    #downloads .row-dl {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.35rem 1rem;
+      margin-top: 0.35rem;
+    }
+    #downloads .primary-dl {
+      font-size: 0.92rem;
+    }
+    .spinner {
+      display: inline-block;
+      width: 0.85em;
+      height: 0.85em;
+      border: 2px solid var(--line);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: -2px;
+      margin-right: 0.35rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #logo-card .logo-preview {
+      margin-top: 0.5rem;
+      min-height: 2.5rem;
+    }
+    #logo-card img {
+      max-height: 72px;
+      max-width: 100%;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+    }
+    #logo-card .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    #logo-card input[type="file"] {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Church Media Generator</h1>
+      <p class="tagline">Mass slides & poster from the lectionary</p>
+    </header>
+
+    <div class="card" id="logo-card">
+      <label>Church logo (poster)</label>
+      <p class="tagline" style="margin: 0 0 0.5rem;">Upload a PNG, JPEG, WebP, or GIF. It is saved to the server and used on the generated poster.</p>
+      <div class="logo-row">
+        <input type="file" id="logo-file" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" />
+        <button type="button" class="secondary" id="btn-upload-logo">Upload logo</button>
+      </div>
+      <p id="logo-status" style="font-family:var(--sans);font-size:0.82rem;margin:0.5rem 0 0;min-height:1.2em;" aria-live="polite"></p>
+      <div class="logo-preview" id="logo-preview-wrap"></div>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <label for="mass-date">Mass date</label>
+        <input type="date" id="mass-date" name="date" required />
+      </div>
+      <div class="row">
+        <label for="celebrant">Celebrant</label>
+        <input type="text" id="celebrant" name="celebrant" placeholder="Name" autocomplete="name" required />
+      </div>
+      <div class="row">
+        <label for="church-name">Church name (top-left on every slide)</label>
+        <input type="text" id="church-name" name="church_name" placeholder="Parish or community name" maxlength="240" />
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" id="btn-preview">Load readings</button>
+        <button type="button" class="primary" id="btn-generate">Generate</button>
+      </div>
+      <p id="status" aria-live="polite"></p>
+    </div>
+
+    <div class="card" id="preview-panel">
+      <p class="preview-title" id="pv-title"></p>
+      <p class="meta" id="pv-gospel"></p>
+      <p class="meta" id="pv-season"></p>
+      <p class="meta" id="pv-color"></p>
+      <div id="sentences-block">
+        <label>Slide excerpt (sentence)</label>
+        <div id="sentences-list"></div>
+      </div>
+      <div id="songs-block">
+        <label>Hymns — choose one per section (lyrics from library → slides)</label>
+        <p class="meta" style="margin:0 0 0.75rem;">Load readings first to refresh suggestions for this liturgical season. Pick from 3–5 options per section; Communion uses two songs.</p>
+        <div class="row">
+          <label for="sel-entrance">Entrance</label>
+          <select id="sel-entrance"><option value="">— Default placeholder —</option></select>
+        </div>
+        <div class="row">
+          <label for="sel-offertory">Offertory</label>
+          <select id="sel-offertory"><option value="">— Default placeholder —</option></select>
+        </div>
+        <div class="row">
+          <label for="sel-communion-1">Communion (first)</label>
+          <select id="sel-communion-1"><option value="">— Default placeholder —</option></select>
+        </div>
+        <div class="row">
+          <label for="sel-communion-2">Communion (second)</label>
+          <select id="sel-communion-2"><option value="">— Default placeholder —</option></select>
+        </div>
+        <div class="row">
+          <label for="sel-recessional">Recessional</label>
+          <select id="sel-recessional"><option value="">— Default placeholder —</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="downloads">
+      <p style="margin:0 0 0.35rem; font-family: var(--sans); font-size: 0.88rem;">Downloads</p>
+      <div class="row-dl" id="dl-zip-row" style="display:none;">
+        <a href="#" id="dl-zip" class="primary-dl" download>PowerPoint + poster (ZIP)</a>
+      </div>
+      <div class="row-dl">
+        <a href="#" id="dl-pptx" download>PowerPoint only</a>
+        <a href="#" id="dl-poster" download>Poster (PNG)</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const statusEl = $("status");
+    const panel = $("preview-panel");
+    const sentencesBlock = $("sentences-block");
+    const sentencesList = $("sentences-list");
+    const songsBlock = $("songs-block");
+    const downloads = $("downloads");
+
+    function setStatus(msg, kind) {
+      statusEl.textContent = msg || "";
+      statusEl.className = kind || "";
+    }
+
+    function formatDateInput(d) {
+      if (!d) return "";
+      const x = new Date(d);
+      if (isNaN(x.getTime())) return "";
+      const y = x.getFullYear();
+      const m = String(x.getMonth() + 1).padStart(2, "0");
+      const day = String(x.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+
+    // Default date: today
+    $("mass-date").value = formatDateInput(new Date());
+
+    let previewSentences = [];
+
+    function fillHymnSelects(bySection) {
+      const defOpt = '<option value="">— Default placeholder slides —</option>';
+      const fill = (id, key) => {
+        const el = $(id);
+        if (!el) return;
+        const items = (bySection && bySection[key]) || [];
+        let h = defOpt;
+        for (let i = 0; i < items.length; i++) {
+          const it = items[i];
+          const idv = String(it.id || "").replace(/"/g, "&quot;");
+          const tit = escapeHtml(String(it.title || ""));
+          h += '<option value="' + idv + '">' + tit + "</option>";
+        }
+        el.innerHTML = h;
+      };
+      fill("sel-entrance", "entrance");
+      fill("sel-offertory", "offertory");
+      fill("sel-communion-1", "communion");
+      fill("sel-communion-2", "communion");
+      fill("sel-recessional", "recessional");
+    }
+
+    async function refreshCommunityLogo() {
+      try {
+        const res = await fetch("/api/community");
+        const data = await res.json();
+        const cn = $("church-name");
+        if (cn && data.community_name) cn.value = data.community_name;
+        const wrap = $("logo-preview-wrap");
+        if (data.logo_url) {
+          wrap.innerHTML =
+            '<img src="' +
+            data.logo_url +
+            "?t=" +
+            Date.now() +
+            '" alt="Current logo" />';
+        } else {
+          wrap.innerHTML =
+            '<span style="font-family:var(--sans);font-size:0.82rem;color:var(--muted);">No logo yet.</span>';
+        }
+      } catch (_e) {
+        $("logo-preview-wrap").innerHTML = "";
+      }
+    }
+
+    const logoStatusEl = $("logo-status");
+    function setLogoStatus(msg, kind) {
+      logoStatusEl.textContent = msg || "";
+      logoStatusEl.className = kind ? kind : "";
+    }
+
+    $("btn-upload-logo").addEventListener("click", async () => {
+      const input = $("logo-file");
+      if (!input.files || !input.files[0]) {
+        setLogoStatus("Choose an image file first.", "error");
+        return;
+      }
+      const fd = new FormData();
+      fd.append("file", input.files[0]);
+      setLogoStatus("Uploading…", "");
+      $("btn-upload-logo").disabled = true;
+      try {
+        const res = await fetch("/api/upload-logo", { method: "POST", body: fd });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          const d = data.detail;
+          throw new Error(typeof d === "string" ? d : JSON.stringify(d));
+        }
+        setLogoStatus(data.message || "Logo saved.", "ok");
+        await refreshCommunityLogo();
+      } catch (e) {
+        setLogoStatus(e.message || "Upload failed.", "error");
+      } finally {
+        $("btn-upload-logo").disabled = false;
+      }
+    });
+
+    refreshCommunityLogo();
+
+    async function postJSON(url, body) {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const err = data.detail || data.error || res.statusText;
+        throw new Error(typeof err === "string" ? err : JSON.stringify(err));
+      }
+      return data;
+    }
+
+    $("btn-preview").addEventListener("click", async () => {
+      const date = $("mass-date").value.trim();
+      if (!date) {
+        setStatus("Choose a mass date.", "error");
+        return;
+      }
+      setStatus("Loading…", "");
+      $("btn-preview").disabled = true;
+      try {
+        const data = await postJSON("/api/preview", { date });
+        if (!data.ok) {
+          setStatus(data.error || "Could not load readings.", "error");
+          panel.classList.remove("visible");
+          return;
+        }
+        $("pv-title").textContent = data.title || "";
+        $("pv-gospel").textContent = "Gospel: " + (data.gospel_reference || "");
+        const season = [data.season, data.lectionary_cycle].filter(Boolean).join(" · ");
+        $("pv-season").textContent = season ? "Season: " + season : "";
+        const lc = data.liturgical_color;
+        if (lc && lc.hex) {
+          $("pv-color").innerHTML =
+            '<span class="swatch" style="background:' + lc.hex + '"></span>' +
+            (lc.color_name || "") + " · " + (lc.hex || "");
+        } else {
+          $("pv-color").textContent = "";
+        }
+        previewSentences = data.sentences || [];
+        if (previewSentences.length > 1) {
+          sentencesBlock.classList.add("visible");
+          sentencesList.innerHTML = previewSentences
+            .map(
+              (s, i) =>
+                `<div class="choice"><label><input type="radio" name="sent" value="${i}" ${
+                  i === 0 ? "checked" : ""
+                } /> ${escapeHtml(s.length > 200 ? s.slice(0, 197) + "…" : s)}</label></div>`
+            )
+            .join("");
+        } else {
+          sentencesBlock.classList.remove("visible");
+          sentencesList.innerHTML = "";
+        }
+        panel.classList.add("visible");
+        fillHymnSelects(data.songs_by_section || {});
+        songsBlock.classList.add("visible");
+        const gLen = data.gospel_text_length;
+        setStatus(
+          gLen
+            ? "Readings loaded (" + gLen + " characters of Gospel text)."
+            : "Readings loaded. Gospel text may be partial.",
+          "ok"
+        );
+      } catch (e) {
+        setStatus(e.message || "Request failed.", "error");
+      } finally {
+        $("btn-preview").disabled = false;
+      }
+    });
+
+    function escapeHtml(s) {
+      const d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    function selectedSentenceIndex() {
+      const r = document.querySelector('input[name="sent"]:checked');
+      if (r) return parseInt(r.value, 10);
+      return null;
+    }
+
+    $("btn-generate").addEventListener("click", async () => {
+      const date = $("mass-date").value.trim();
+      const celebrant = $("celebrant").value.trim();
+      if (!date || !celebrant) {
+        setStatus("Enter mass date and celebrant name.", "error");
+        return;
+      }
+      const body = { date, celebrant };
+      const idx = selectedSentenceIndex();
+      if (idx !== null && !Number.isNaN(idx)) {
+        body.sentence_index = idx;
+      }
+      const church = $("church-name").value.trim();
+      if (church) body.community_name = church;
+      const songs = {};
+      const se = $("sel-entrance").value;
+      const so = $("sel-offertory").value;
+      const sc1 = $("sel-communion-1").value;
+      const sc2 = $("sel-communion-2").value;
+      const sr = $("sel-recessional").value;
+      if (se) songs.entrance = se;
+      if (so) songs.offertory = so;
+      if (sc1) songs.communion_1 = sc1;
+      if (sc2) songs.communion_2 = sc2;
+      if (sr) songs.recessional = sr;
+      if (Object.keys(songs).length) body.songs = songs;
+      setStatus("Generating…", "");
+      $("btn-preview").disabled = true;
+      $("btn-generate").disabled = true;
+      try {
+        const data = await postJSON("/api/generate", body);
+        setStatus("Done. " + (data.slide_excerpt ? '"' + data.slide_excerpt + '"' : ""), "ok");
+        $("dl-pptx").href = data.pptx_url;
+        $("dl-poster").href = data.poster_url;
+        const zipRow = $("dl-zip-row");
+        const z = data.zip_url;
+        if (z) {
+          $("dl-zip").href = z;
+          zipRow.style.display = "flex";
+        } else {
+          zipRow.style.display = "none";
+        }
+        downloads.classList.add("visible");
+      } catch (e) {
+        setStatus(e.message || "Generation failed.", "error");
+        downloads.classList.remove("visible");
+      } finally {
+        $("btn-preview").disabled = false;
+        $("btn-generate").disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

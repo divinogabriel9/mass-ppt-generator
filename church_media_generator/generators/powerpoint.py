@@ -19,6 +19,7 @@ from pptx.util import Inches, Pt
 
 from services.community_config import get_community_name, get_logo_path
 from services.hymn_library import get_hymn
+from services.prayer_service import get_prayer
 
 from . import gfcc_flow_content as GFCC
 
@@ -384,9 +385,11 @@ def _add_section_card(prs: Presentation, big_lines: str, footer_section: str, th
     _add_community_footer(slide, footer_section, theme)
 
 
-def _chunk_lyrics_display(text: str, limit: int = _LYRIC_CHUNK) -> List[str]:
-    """Split long lyrics across slides without breaking mid-word when possible."""
-    t = (text or "").strip() or "(No lyrics in library for this selection.)"
+def _chunk_long_plain_segment(text: str, limit: int) -> List[str]:
+    """Split one lyric segment across slides (line / word aware)."""
+    t = (text or "").strip()
+    if not t:
+        return []
     if len(t) <= limit:
         return [t]
     out: List[str] = []
@@ -406,6 +409,21 @@ def _chunk_lyrics_display(text: str, limit: int = _LYRIC_CHUNK) -> List[str]:
         while i < n and t[i].isspace():
             i += 1
     return out if out else [t[:limit]]
+
+
+def _chunk_lyrics_display(text: str, limit: int = _LYRIC_CHUNK) -> List[str]:
+    """Prefer stanza boundaries (blank lines), then size limits within each stanza."""
+    t = (text or "").strip() or "(No lyrics in library for this selection.)"
+    stanzas = [s.strip() for s in re.split(r"\n\s*\n+", t) if s.strip()]
+    if len(stanzas) <= 1:
+        return _chunk_long_plain_segment(t, limit)
+    chunks: List[str] = []
+    for stanza in stanzas:
+        if len(stanza) <= limit:
+            chunks.append(stanza)
+        else:
+            chunks.extend(_chunk_long_plain_segment(stanza, limit))
+    return chunks if chunks else [t[:limit]]
 
 
 def _fill_hymn_body_caps(tf, chunk: str) -> None:
@@ -719,7 +737,7 @@ def generate_mass_ppt(
     quote_max_chars: int = 400,
     liturgical_color: Optional[Mapping[str, Any]] = None,
     song_selections: Optional[Mapping[str, Any]] = None,
-):
+) -> int:
     prs = Presentation()
     prs.slide_width = SLIDE_WIDTH
     prs.slide_height = SLIDE_HEIGHT
@@ -765,6 +783,14 @@ def generate_mass_ppt(
         theme=theme,
     )
 
+    _add_marked_slide(
+        prs,
+        "Intro",
+        "<<D>>Welcome to the celebration of the Holy Eucharist.\n"
+        "<<D>>Please stand and join in singing the Entrance hymn.",
+        theme,
+    )
+
     ent_id = str(sel.get("entrance") or "").strip()
     if not ent_id or not _try_library_hymn(prs, "entrance", ent_id, "Entrance", theme):
         _add_marked_chunked(prs, "Entrance", GFCC.ENTRANCE_HYMN_1 + "\n" + GFCC.ENTRANCE_HYMN_2, theme)
@@ -772,16 +798,15 @@ def generate_mass_ppt(
 
     # --- Introductory Rites ---
     _add_marked_slide(prs, "Introductory Rites", GFCC.SIGN_CROSS, theme)
-    _add_marked_slide(prs, "Penitential Act", GFCC.GREETING_EXTENDED, theme)
-    _add_marked_slide(prs, "Penitential Act", GFCC.CONFITEOR_OPEN, theme)
-    _add_marked_slide(prs, "Penitential Act", GFCC.ABSOLUTION_PENITENTIAL, theme)
+    _add_marked_chunked(prs, "Penitential Act", get_prayer("penitential_act"), theme)
     _add_marked_slide(prs, "Kyrie Eleison", GFCC.KYRIE, theme)
-    _add_marked_chunked(prs, "Gloria", GFCC.GLORIA_FULL, theme)
+    _add_marked_chunked(prs, "Gloria", get_prayer("gloria"), theme)
     _add_marked_slide(prs, "Liturgy of the Word", GFCC.OPENING_PRAYER, theme)
 
     # --- Liturgy of the Word ---
     _add_section_card(prs, "LITURGY OF\nTHE WORD", "Liturgy of the Word", theme)
 
+    _add_section_card(prs, "FIRST\nREADING", "First Reading Title", theme)
     _add_reading_block(
         prs,
         section="First Reading",
@@ -792,6 +817,7 @@ def generate_mass_ppt(
         footer_tag="Liturgy of the Word",
         theme=theme,
     )
+    _add_section_card(prs, "RESPONSORIAL\nPSALM", "Responsorial Psalm Title", theme)
     _add_reading_block(
         prs,
         section="Responsorial Psalm",
@@ -803,6 +829,7 @@ def generate_mass_ppt(
         theme=theme,
     )
     if (second_reading_ref or "").strip():
+        _add_section_card(prs, "SECOND\nREADING", "Second Reading Title", theme)
         _add_reading_block(
             prs,
             section="Second Reading",
@@ -817,6 +844,19 @@ def generate_mass_ppt(
     _add_marked_slide(prs, "Gospel Acclamation", GFCC.ALLELUIA_SING, theme)
     _add_marked_slide(prs, "Gospel Acclamation", GFCC.ALLELUIA_COMMENTATOR, theme)
     _add_marked_slide(prs, "Gospel Acclamation", GFCC.GOSPEL_INTRO, theme)
+
+    g_quote_intro = (g_line or "").strip()
+    if quote_max_chars and len(g_quote_intro) > quote_max_chars:
+        g_quote_intro = g_quote_intro[: quote_max_chars - 1].rstrip() + "\u2026"
+    if g_quote_intro:
+        _add_marked_slide(
+            prs,
+            "Gospel",
+            f"<<D>>{gospel_reference or '—'}\n<<D>>\n<<A>>\u201c{g_quote_intro}\u201d",
+            theme,
+        )
+    else:
+        _add_marked_slide(prs, "Gospel", f"<<D>>{gospel_reference or '—'}", theme)
 
     g_body = ((gospel_full_text or "").strip() or (gospel_quote or "").strip())
     _add_reading_block(
@@ -840,7 +880,7 @@ def generate_mass_ppt(
     _add_divider_cover(prs, **ctx)
 
     # --- Creed ---
-    _add_marked_chunked(prs, "Nicene Creed", GFCC.CREED_1 + "\n" + GFCC.CREED_2 + "\n" + GFCC.CREED_3, theme)
+    _add_marked_chunked(prs, "Nicene Creed", get_prayer("nicene_creed"), theme)
     _add_divider_cover(prs, **ctx)
 
     # --- Prayer of the Faithful ---
@@ -857,19 +897,17 @@ def generate_mass_ppt(
     _add_section_card(prs, "LITURGY OF\nTHE EUCHARIST", "Liturgy of the Eucharist", theme)
     _add_marked_slide(prs, "Liturgy of the Eucharist", GFCC.PREFACE_DIALOGUE, theme)
     _add_marked_slide(prs, "Liturgy of the Eucharist", GFCC.PREFACE_ACCLAIM, theme)
-    _add_marked_chunked(prs, "Sanctus", GFCC.SANCTUS, theme)
+    _add_marked_chunked(prs, "Sanctus", get_prayer("holy_holy"), theme)
     _add_section_card(prs, "LITURGY OF\nTHE EUCHARIST", "Liturgy of the Eucharist", theme)
-    _add_marked_slide(prs, "The Eucharistic Prayer", GFCC.MYSTERY_FAITH, theme)
+    _add_marked_slide(prs, "The Eucharistic Prayer", get_prayer("mystery_of_faith"), theme)
     _add_section_card(prs, "LITURGY OF\nTHE EUCHARIST", "Liturgy of the Eucharist", theme)
     _add_marked_slide(prs, "Great Amen", GFCC.GREAT_AMEN, theme)
-    _add_marked_slide(prs, "Our Father", GFCC.OUR_FATHER_KO_1, theme)
-    _add_marked_slide(prs, "Our Father", GFCC.OUR_FATHER_KO_2, theme)
-    _add_marked_chunked(prs, "Our Father", GFCC.OUR_FATHER_ENGLISH, theme)
+    _add_marked_chunked(prs, "Our Father", get_prayer("our_father"), theme)
     _add_divider_cover(prs, **ctx)
     _add_marked_slide(prs, "The Communion Rite", GFCC.COMMUNION_RITE_DELIVER, theme)
     _add_divider_cover(prs, **ctx)
     _add_marked_slide(prs, "Sign of Peace", GFCC.SIGN_PEACE, theme)
-    _add_marked_slide(prs, "Lamb of God", GFCC.LAMB_OF_GOD, theme)
+    _add_marked_slide(prs, "Lamb of God", get_prayer("lamb_of_god"), theme)
     _add_marked_slide(prs, "The Communion Rite", GFCC.COMMUNION_DIALOGUE, theme)
     _add_divider_cover(prs, **ctx)
     c1 = str(sel.get("communion_1") or "").strip()
@@ -881,6 +919,9 @@ def generate_mass_ppt(
         comm_ok = True
     if not comm_ok:
         _add_marked_chunked(prs, "Communion", GFCC.COMMUNION_HYMN, theme)
+    med_id = str(sel.get("meditation") or "").strip()
+    if med_id:
+        _try_library_hymn(prs, "meditation", med_id, "Meditation", theme)
     _add_marked_slide(prs, "The Communion Rite", GFCC.POST_COMMUNION, theme)
     _add_divider_cover(prs, **ctx)
 
@@ -903,5 +944,7 @@ def generate_mass_ppt(
 
     _OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     out = _OUTPUT_DIR / "mass_presentation.pptx"
+    n_slides = len(prs.slides)
     prs.save(out)
-    print(f"✅ PowerPoint created: {out}")
+    print(f"✅ PowerPoint created: {out} ({n_slides} slides)")
+    return n_slides

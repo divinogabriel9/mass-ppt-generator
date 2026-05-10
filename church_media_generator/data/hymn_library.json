@@ -42,6 +42,139 @@
         "ordinary_time"
       ],
       "lyrics": "Joyful, joyful, we adore thee,\nGod of glory, Lord of love;\nhearts unfold like flowers before thee,\nhailing thee, the sun above.\n\nMelt the clouds of sin and sadness,\ndrive the dark of doubt away;\ngiver of immortal gladness,\nfill us with the light of day.\n\nAll thy works with joy surround thee,\nearth and heav'n reflect thy rays,\nstars and angels sing around thee,\ncenter of unbroken praise.\n\nField and forest, vale and mountain,\nflowery meadow, flashing sea,\nchanting bird and flowing fountain,\ncall us to rejoice in thee.\n\nThou art giving and forgiving,\never blessing, ever blest,\nwell-spring of the joy of living,\nocean depth of happy rest!\n\nThou our Father, Christ our brother—\nall who live in love are thine;\nteach us how to love each other,\nlift us to the joy divine.\n\nMortals, join the mighty chorus,\nwhich the morning stars began;\nlove divine is reigning o'er us,\nleading to the light of man.\n"
+    },
+    {
+      "id": "holy_holy_holy",
+      "title": "Holy, Holy, Holy",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Holy, holy, holy! Lord God Almighty!\nEarly in the morning our song shall rise to thee;\nholy, holy, holy! Merciful and mighty!\nGod in three Persons, blessed Trinity!\n\nHoly, holy, holy! All the saints adore thee,\ncasting down their golden crowns around the glassy sea;\ncherubim and seraphim falling down before thee,\nwho wert and art and evermore shalt be.\n\nHoly, holy, holy! Though the darkness hide thee,\nthough the eye of sinful man thy glory may not see,\nonly thou art holy; there is none beside thee,\nperfect in power, in love, and purity.\n\nHoly, holy, holy! Lord God Almighty!\nAll thy works shall praise thy name, in earth and sky and sea;\nholy, holy, holy! Merciful and mighty!\nGod in three Persons, blessed Trinity!"
+    },
+    {
+      "id": "crown_him",
+      "title": "Crown Him with Many Crowns",
+      "seasons": [
+        "easter",
+        "ordinary_time"
+      ],
+      "lyrics": "Crown him with many crowns,\nthe Lamb upon his throne;\nhark! how the heavenly anthem drowns\nall music but its own.\nAwake, my soul, and sing\nof him who died for thee,\nand hail him as thy matchless King\nthrough all eternity.\n\nCrown him the Lord of life,\nwho triumphed o'er the grave,\nand rose victorious in the strife\nfor those he came to save.\nHis glories now we sing,\nwho died and rose on high,\nwho died, eternal life to bring,\nand lives that death may die.\n\nCrown him the Lord of peace,\nwhose power a scepter sways\nfrom pole to pole, that wars may cease,\nand all be prayer and praise.\nHis reign shall know no end,\nand round his pierced feet\nfair flowers of paradise extend\ntheir fragrance ever sweet."
+    },
+    {
+      "id": "praise_to_lord",
+      "title": "Praise to the Lord, the Almighty",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Praise to the Lord, the Almighty, the King of creation!\nO my soul, praise him, for he is your health and salvation!\nAll you who hear, now to his altar draw near,\njoining in glad adoration.\n\nPraise to the Lord, who o'er all things is wondrously reigning,\nand, as on wings of an eagle, uplifting, sustaining.\nHave you not seen all that is needful has been\nsent by his gracious ordaining?\n\nPraise to the Lord, who will prosper your work and defend you;\nsurely his goodness and mercy shall daily attend you.\nPonder anew what the Almighty can do,\nwho with his love will befriend you.\n\nPraise to the Lord! O let all that is in me adore him!\nAll that has life and breath, come now with praises before him!\nLet the amen sound from his people again;\ngladly forever adore him!"
+    },
+    {
+      "id": "all_are_welcome",
+      "title": "All Are Welcome",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "gather_us_in",
+      "title": "Gather Us In",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "christ_be_our_light",
+      "title": "Christ Be Our Light",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "canticle_of_the_sun",
+      "title": "Canticle of the Sun",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "holy_god_we_praise_thy_name",
+      "title": "Holy God We Praise Thy Name",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "joyful_joyful_we_adore_thee",
+      "title": "Joyful Joyful We Adore Thee",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "morning_has_broken",
+      "title": "Morning Has Broken",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "awit_ng_paghahangad",
+      "title": "Awit ng Paghahangad",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "purihin_ang_panginoon",
+      "title": "Purihin ang Panginoon",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "awit_ng_bayan",
+      "title": "Awit ng Bayan",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "halina_t_umawit",
+      "title": "Halina't Umawit",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "veni_creator_spiritus",
+      "title": "Veni Creator Spiritus",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
     }
   ],
   "offertory": [
@@ -85,6 +218,75 @@
         "ordinary_time"
       ],
       "lyrics": "One bread, one body, one Lord of all,\none cup of blessing which we bless.\nAnd we, though many, throughout the earth,\nwe are one body in this one Lord.\n\nGentile or Jew, servant or free,\nwoman or man, no more.\n\nMany the gifts, many the works,\nmany the ways we serve;\nmany the moments, many the hours,\nmany the talents shared.\n\nOne bread, one body, one Lord of all,\none cup of blessing which we bless.\nAnd we, though many, throughout the earth,\nwe are one body in this one Lord."
+    },
+    {
+      "id": "doxology",
+      "title": "Doxology (Praise God from Whom All Blessings Flow)",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Praise God, from whom all blessings flow;\npraise him, all creatures here below;\npraise him above, ye heavenly host;\npraise Father, Son, and Holy Ghost. Amen.\n\nLet earth and heaven adore his name,\nand every heart his grace proclaim;\nwith grateful songs and lifted voice,\nwe bless the Lord and now rejoice."
+    },
+    {
+      "id": "take_my_life",
+      "title": "Take My Life and Let It Be",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Take my life and let it be\nconsecrated, Lord, to thee;\ntake my moments and my days,\nlet them flow in ceaseless praise.\n\nTake my hands and let them move\nat the impulse of thy love;\ntake my feet and let them be\nswift and beautiful for thee.\n\nTake my voice and let me sing\nalways, only, for my King;\ntake my lips and let them be\nfilled with messages from thee.\n\nTake my silver and my gold,\nnot a mite would I withhold;\ntake my intellect and use\nevery power as thou shalt choose.\n\nTake my will and make it thine,\nit shall be no longer mine;\ntake my heart, it is thine own,\nit shall be thy royal throne.\n\nTake my love; my Lord, I pour\nat thy feet its treasure-store;\ntake myself, and I will be\never, only, all for thee."
+    },
+    {
+      "id": "we_give_thee",
+      "title": "We Give Thee But Thine Own",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "We give thee but thine own,\nwhate'er the gift may be;\nall that we have is thine alone,\na trust, O Lord, from thee.\n\nMay we thy bounties thus\nas stewards true receive,\nand gladly, as thou blessest us,\nto thee our firstfruits give.\n\nTo comfort and to bless,\nto find a balm for woe,\nto tend the lone and fatherless,\nis angels' work below.\n\nThe captive to release,\nto God the lost to bring,\nto teach the way of life and peace,\nit is a Christ-like thing."
+    },
+    {
+      "id": "take_our_bread",
+      "title": "Take Our Bread",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "prayer_of_st_francis",
+      "title": "Prayer of St Francis",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "pananagutan",
+      "title": "Pananagutan",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "sa_yo_lamang",
+      "title": "Sa Yo Lamang",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "ave_maria_gregorian",
+      "title": "Ave Maria (Gregorian)",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
     }
   ],
   "communion": [
@@ -137,6 +339,185 @@
         "easter"
       ],
       "lyrics": "Panis angelicus\nfit panis hominum;\ndat panis caelicus\nfiguris terminum.\n\nO res mirabilis!\nManducat Dominum\npauper, servus et humilis.\n\nTe trina Deitas\nunaque poscimus,\nsic nos tu visita,\nsicut te colimus.\n\nPer huius viam ductus\ntendimus ad lucem,\nquam in habitatione\nsancta tu inhabitas.\n\n(English singing translation, if used:\nBread of angels, become bread for mortals;\nthis heavenly bread ends our symbols.\nO wondrous thing! The poor, lowly servant eats the Lord.)"
+    },
+    {
+      "id": "let_us_break_bread",
+      "title": "Let Us Break Bread Together",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "Let us break bread together on our knees,\nlet us break bread together on our knees.\nWhen I fall on my knees,\nwith my face to the rising sun,\nO Lord, have mercy on me.\n\nLet us drink wine together on our knees,\nlet us drink wine together on our knees.\nWhen I fall on my knees,\nwith my face to the rising sun,\nO Lord, have mercy on me.\n\nLet us praise God together on our knees,\nlet us praise God together on our knees.\nWhen I fall on my knees,\nwith my face to the rising sun,\nO Lord, have mercy on me."
+    },
+    {
+      "id": "jesus_my_lord",
+      "title": "Jesus, My Lord, My God, My All",
+      "seasons": [
+        "lent",
+        "ordinary_time"
+      ],
+      "lyrics": "Jesus, my Lord, my God, my All,\nhear me, blest Savior, when I call;\nhear me, and from thy dwelling place,\npour down the riches of thy grace.\n\nJesus, too late I thee have sought,\nhow can I love thee as I ought?\nAnd how extol thy matchless fame,\nthe glorious beauty of thy name?\n\nJesus, what didst thou find in me,\nthat thou hast dealt so lovingly?\nHow great the joy that thou hast brought,\nso far exceeding hope or thought.\n\nJesus, my Lord, I thee adore,\nO make me love thee more and more,\nO make me love thee more and more."
+    },
+    {
+      "id": "soul_of_my_savior",
+      "title": "Soul of My Savior",
+      "seasons": [
+        "lent",
+        "all"
+      ],
+      "lyrics": "Soul of my Savior, sanctify my breast,\nbody of Christ, be thou my saving guest;\nblood of my Savior, bathe me in thy tide,\nwash me with water flowing from thy side.\n\nStrength and protection may thy passion be,\nO blessed Jesus, hear and answer me;\ndeep in thy wounds, Lord, hide and shelter me,\nso shall I never, never part from thee.\n\nGuard and defend me from the foe malign,\nin death's dread moments make me only thine;\ncall me and bid me come to thee on high,\nwhere I may praise thee with thy saints for aye."
+    },
+    {
+      "id": "christ_be_our_light",
+      "title": "Christ Be Our Light",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "on_eagle_s_wings",
+      "title": "On Eagle's Wings",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "one_bread_one_body",
+      "title": "One Bread One Body",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "be_not_afraid",
+      "title": "Be Not Afraid",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "lead_me_lord_2",
+      "title": "Lead Me Lord",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "pananagutan",
+      "title": "Pananagutan",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "tanging_yaman",
+      "title": "Tanging Yaman",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "huwag_kang_mangamba",
+      "title": "Huwag Kang Mangamba",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "ang_katawan_ni_kristo",
+      "title": "Ang Katawan ni Kristo",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "halina_hesus_halina",
+      "title": "Halina Hesus Halina",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "dakilang_pag_ibig",
+      "title": "Dakilang Pag-ibig",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "pag_ibig_ng_diyos",
+      "title": "Pag-ibig ng Diyos",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "ave_verum_corpus",
+      "title": "Ave Verum Corpus",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "ubi_caritas",
+      "title": "Ubi Caritas",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "tantum_ergo",
+      "title": "Tantum Ergo",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "adoro_te_devote",
+      "title": "Adoro Te Devote",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "pange_lingua",
+      "title": "Pange Lingua",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
     }
   ],
   "recessional": [
@@ -181,6 +562,141 @@
         "ordinary_time"
       ],
       "lyrics": "Lead me, Lord, lead me in thy righteousness,\nmake thy way plain before my face.\n\nFor it is thou, Lord, thou, Lord only,\nthat makest me dwell in safety.\n\nGuide me, Lord, guide me when I am weary,\nbe my strength when shadows fall.\n\nTurn my heart to thy holy word,\nbe my keeper, be my Lord.\n\nLead me, Lord, lead me in thy righteousness,\nmake thy way plain before my face.\n\nIn thy light we see light;\nin thy truth we find our way.\nBe our refuge and our fortress,\nbe our strength from day to day.\n\nLead me, Lord, lead me in thy righteousness,\nmake thy way plain before my face."
+    },
+    {
+      "id": "to_jesus_christ_king",
+      "title": "To Jesus Christ, Our Sovereign King",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "To Jesus Christ, our Sovereign King,\nwho is the world's salvation,\nall praise and homage do we bring,\nand thanks and adoration.\nChrist Jesus, Victor!\nChrist Jesus, Ruler!\nChrist Jesus, Lord and Redeemer!\n\nYour reign extend, O King benign,\nto every land and nation,\nfor in your kingdom, Lord divine,\nalone we find salvation.\nChrist Jesus, Victor!\nChrist Jesus, Ruler!\nChrist Jesus, Lord and Redeemer!\n\nWhen this our life of trials is past,\nbring us to your kingdom,\nwhere glory, joy and peace will last,\nfor all who know your freedom.\nChrist Jesus, Victor!\nChrist Jesus, Ruler!\nChrist Jesus, Lord and Redeemer!"
+    },
+    {
+      "id": "god_of_our_fathers",
+      "title": "God of Our Fathers",
+      "seasons": [
+        "ordinary_time",
+        "all"
+      ],
+      "lyrics": "God of our fathers, whose almighty hand\nleads forth in beauty all the starry band\nof shining worlds in splendor through the skies:\nour grateful songs before your throne arise.\n\nYour love divine has led us in the past;\nin this free land by you our lot is cast;\nyou are our ruler, guardian, guide, and stay;\nyour word our law, your paths our chosen way.\n\nRefresh your people on their toilsome way,\nlead us from night to never-ending day;\nfill all our lives with heaven-born love and grace\nuntil at last we meet before your face."
+    },
+    {
+      "id": "onward_christian",
+      "title": "Onward, Christian Soldiers",
+      "seasons": [
+        "ordinary_time"
+      ],
+      "lyrics": "Onward, Christian soldiers,\nmarching as to war,\nwith the cross of Jesus\ngoing on before.\nChrist, the royal Master,\nleads against the foe;\nforward into battle,\nsee his banners go!\n\nOnward, Christian soldiers,\nmarching as to war,\nwith the cross of Jesus\ngoing on before.\n\nLike a mighty army\nmoves the Church of God;\nbrothers, we are treading\nwhere the saints have trod.\nWe are not divided,\nall one body we,\none in hope and doctrine,\none in charity.\n\nOnward, Christian soldiers,\nmarching as to war,\nwith the cross of Jesus\ngoing on before."
+    },
+    {
+      "id": "lead_me_lord_2",
+      "title": "Lead Me Lord",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "lift_high_the_cross",
+      "title": "Lift High the Cross",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "shine_jesus_shine",
+      "title": "Shine Jesus Shine",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "god_be_with_you_till_we_meet_again",
+      "title": "God Be With You Till We Meet Again",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "now_thank_we_all_our_god",
+      "title": "Now Thank We All Our God",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "humayo_t_ihayag",
+      "title": "Humayo't Ihayag",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "awit_ng_pasasalamat",
+      "title": "Awit ng Pasasalamat",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "salamat_sa_diyos",
+      "title": "Salamat sa Diyos",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "salve_regina",
+      "title": "Salve Regina",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    },
+    {
+      "id": "regina_caeli",
+      "title": "Regina Caeli",
+      "language": "Latin",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
+    }
+  ],
+  "meditation": [
+    {
+      "id": "med_pananaghoy",
+      "title": "Pananaghoy (Meditation)",
+      "language": "Tagalog",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": "(Add verses when available — optional post-Communion meditation.)"
+    },
+    {
+      "id": "med_lead_me_lord",
+      "title": "Lead Me Lord (Meditation)",
+      "language": "English",
+      "seasons": [
+        "all"
+      ],
+      "lyrics": ""
     }
   ]
 }

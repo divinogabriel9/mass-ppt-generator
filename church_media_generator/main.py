@@ -62,6 +62,12 @@ if result.liturgical_color_name:
     )
 if result.slide_line_preview:
     print("Title / deck excerpt:", result.slide_line_preview)
+if result.gospel_quote:
+    print("Gospel quote (slides / poster):", (result.gospel_quote[:200] + "…") if len(result.gospel_quote) > 200 else result.gospel_quote)
+if result.slide_count:
+    print("Slide count:", result.slide_count)
 
 print("✅ PowerPoint generated.")
-print("✅ Poster generated:", result.poster_path)
+print("✅ Poster (social):", result.poster_path)
+if result.poster_ppt_path:
+    print("✅ Poster (16×9 for projection):", result.poster_ppt_path)

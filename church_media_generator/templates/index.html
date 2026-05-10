@@ -27,22 +27,64 @@
       min-height: 100vh;
       font-family: var(--font);
       color: var(--ink);
-      background:
-        radial-gradient(1200px 350px at 20% -20%, #fef5f1 0%, transparent 65%),
-        radial-gradient(900px 360px at 85% -10%, #eef2ff 0%, transparent 62%),
-        var(--bg);
+      background: linear-gradient(145deg, #edf1f7 0%, #f6f8fb 48%, #eef3ff 100%);
       line-height: 1.45;
     }
-    .wrap {
-      max-width: 1140px;
+    .app-shell {
+      max-width: 1320px;
       margin: 0 auto;
-      padding: 2.25rem 1.25rem 4rem;
+      padding: 1.2rem 1.1rem 2rem;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 0.9rem;
+      min-height: 100vh;
+    }
+    .side-nav {
+      background: #0e1523;
+      color: #dbe5ff;
+      border-radius: 16px;
+      border: 1px solid #1e2b44;
+      box-shadow: 0 16px 42px rgba(6, 10, 18, 0.32);
+      padding: 0.9rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .side-brand {
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      font-size: 0.88rem;
+      padding: 0.35rem 0.4rem 0.6rem;
+      border-bottom: 1px solid #1f2e4c;
+      color: #eff5ff;
+    }
+    .nav-item {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      color: #bdc7de;
+      padding: 0.55rem 0.55rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
+    }
+    .nav-item.active {
+      background: #18253c;
+      border-color: #30456d;
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .dashboard {
+      min-width: 0;
+    }
+    .wrap {
+      max-width: 100%;
+      margin: 0;
+      padding: 0;
     }
     header {
-      margin-bottom: 1.2rem;
+      margin-bottom: 0.9rem;
       border: 1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.88);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.93);
       backdrop-filter: blur(6px);
       display: flex;
       align-items: center;
@@ -116,11 +158,13 @@
     }
     .layout {
       display: grid;
-      grid-template-columns: 1.25fr 0.95fr;
-      gap: 1rem;
+      grid-template-columns: 0.9fr 1.25fr;
+      gap: 0.8rem;
       align-items: start;
     }
     .stack { min-width: 0; }
+    #left-col { order: 1; }
+    #right-col { order: 2; }
     label {
       display: block;
       font-family: var(--sans);
@@ -160,6 +204,102 @@
       margin-bottom: 1rem;
     }
     .row:last-child { margin-bottom: 0; }
+    .select-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.5rem;
+      align-items: end;
+    }
+    .mini-btn {
+      font-family: var(--sans);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      padding: 0.52rem 0.78rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--ink-soft);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .mini-btn:hover { border-color: #cfd6e3; background: #fafbfd; }
+    .inline-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 0.2rem 0 0.9rem;
+    }
+    .split-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+    .mini-select {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      padding: 0.44rem 0.6rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fff;
+    }
+    .preview-container {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      max-height: 380px;
+      overflow: auto;
+      padding: 0.55rem;
+    }
+    .slide-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.55rem;
+      margin-bottom: 0.45rem;
+      background: #fcfcfd;
+      cursor: pointer;
+      white-space: pre-wrap;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      line-height: 1.35;
+    }
+    .pin-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.35rem;
+      font-family: var(--sans);
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+    .pin-row input { margin: 0; }
+    .slide-card:last-child { margin-bottom: 0; }
+    .slide-head { font-weight: 700; color: var(--ink-soft); margin-bottom: 0.3rem; }
+    .slide-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(12,16,26,0.64);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 1rem;
+    }
+    .slide-modal.visible { display: flex; }
+    .slide-modal-box {
+      max-width: 900px;
+      width: 100%;
+      max-height: 82vh;
+      overflow: auto;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      padding: 1rem;
+      font-family: var(--sans);
+      white-space: pre-wrap;
+    }
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -325,6 +465,8 @@
       max-width: 100%;
     }
     @media (max-width: 960px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .side-nav { display: none; }
       .layout { grid-template-columns: 1fr; }
       .hero h2 { font-size: 1.52rem; }
     }
@@ -339,6 +481,17 @@
   </style>
 </head>
 <body>
+  <div class="app-shell">
+    <aside class="side-nav">
+      <div class="side-brand">CHURCH MEDIA DASHBOARD</div>
+      <div class="nav-item active">Projects</div>
+      <div class="nav-item">Templates</div>
+      <div class="nav-item">Hymn Library</div>
+      <div class="nav-item">Uploads</div>
+      <div class="nav-item">Settings</div>
+    </aside>
+
+    <div class="dashboard">
   <div class="wrap">
     <header>
       <div class="brand">
@@ -356,7 +509,39 @@
     </section>
 
     <div class="layout">
-      <div class="stack">
+      <aside class="stack" id="left-col">
+        <div class="card" id="logo-card">
+          <label>Church logo (poster)</label>
+          <p class="tagline" style="margin: 0 0 0.5rem;">Upload a PNG, JPEG, WebP, or GIF. It is saved to the server and used on the generated poster.</p>
+          <div class="logo-row">
+            <input type="file" id="logo-file" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" />
+            <button type="button" class="secondary" id="btn-upload-logo">Upload logo</button>
+          </div>
+          <p id="logo-status" style="font-family:var(--sans);font-size:0.82rem;margin:0.5rem 0 0;min-height:1.2em;" aria-live="polite"></p>
+          <div class="logo-preview" id="logo-preview-wrap"></div>
+        </div>
+        <div class="card">
+          <p class="tagline" style="margin: 0;">Tips</p>
+          <p class="meta" style="margin-top:0.5rem;">1) Date change auto-loads readings.</p>
+          <p class="meta" style="margin-top:0.35rem;">2) Songs are auto-recommended, but you can still choose manually.</p>
+          <p class="meta" style="margin-top:0.35rem;">3) Use one-click refresh for a new non-repeating set.</p>
+        </div>
+        <div class="card">
+          <p class="tagline" style="margin:0 0 0.5rem;">PowerPoint preview</p>
+          <div class="split-actions">
+            <select id="slide-preview-mode" class="mini-select">
+              <option value="bundle">Bundle (compact)</option>
+              <option value="slide">Per slide</option>
+            </select>
+            <button type="button" class="mini-btn" id="btn-refresh-preview">Refresh preview</button>
+          </div>
+          <div id="slide-preview-list" class="preview-container">
+            <p class="meta" style="margin:0;">Generate a deck first, then refresh preview.</p>
+          </div>
+        </div>
+      </aside>
+
+      <div class="stack" id="right-col">
         <div class="card">
           <p class="tagline" style="margin: 0 0 0.6rem;">Mass workflow</p>
           <div class="row">
@@ -389,26 +574,45 @@
           </div>
           <div id="songs-block">
             <label>Hymns — choose one per section (lyrics from library → slides)</label>
-            <p class="meta" style="margin:0 0 0.75rem;">Load readings first to refresh suggestions for this liturgical season. Pick from 3–5 options per section; Communion uses two songs.</p>
+            <p class="meta" style="margin:0 0 0.75rem;">Load readings first to refresh local + web hymn suggestions for this season. You can now get up to 10 options per section; Communion uses two songs.</p>
+            <div class="inline-actions">
+              <select id="song-mix-mode" class="mini-select">
+                <option value="any">Mix: any language</option>
+                <option value="3en2tl">Mix: 3 English + 2 Tagalog</option>
+              </select>
+              <button type="button" class="mini-btn" id="btn-apply-song-mix">Apply mix</button>
+              <button type="button" class="mini-btn" id="btn-refresh-all-songs">Refresh all songs</button>
+              <button type="button" class="mini-btn" id="btn-fetch-selected-lyrics">Fetch lyrics for selected songs</button>
+            </div>
             <div class="row">
               <label for="sel-entrance">Entrance</label>
               <select id="sel-entrance"><option value="">— Default placeholder —</option></select>
+              <label class="pin-row"><input type="checkbox" id="pin-entrance" /> Pin current choice</label>
             </div>
             <div class="row">
               <label for="sel-offertory">Offertory</label>
               <select id="sel-offertory"><option value="">— Default placeholder —</option></select>
+              <label class="pin-row"><input type="checkbox" id="pin-offertory" /> Pin current choice</label>
             </div>
             <div class="row">
               <label for="sel-communion-1">Communion (first)</label>
               <select id="sel-communion-1"><option value="">— Default placeholder —</option></select>
+              <label class="pin-row"><input type="checkbox" id="pin-communion-1" /> Pin current choice</label>
             </div>
             <div class="row">
               <label for="sel-communion-2">Communion (second)</label>
               <select id="sel-communion-2"><option value="">— Default placeholder —</option></select>
+              <label class="pin-row"><input type="checkbox" id="pin-communion-2" /> Pin current choice</label>
             </div>
             <div class="row">
               <label for="sel-recessional">Recessional</label>
               <select id="sel-recessional"><option value="">— Default placeholder —</option></select>
+              <label class="pin-row"><input type="checkbox" id="pin-recessional" /> Pin current choice</label>
+            </div>
+            <div class="row">
+              <label for="sel-meditation">Meditation (optional)</label>
+              <select id="sel-meditation"><option value="">— None —</option></select>
+              <label class="pin-row"><input type="checkbox" id="pin-meditation" /> Pin current choice</label>
             </div>
           </div>
         </div>
@@ -420,31 +624,23 @@
           </div>
           <div class="row-dl">
             <a href="#" id="dl-pptx" download>PowerPoint only</a>
-            <a href="#" id="dl-poster" download>Poster (PNG)</a>
+            <a href="#" id="dl-poster" download>Poster (social PNG)</a>
+            <a href="#" id="dl-poster-ppt" download>Poster (16×9)</a>
           </div>
         </div>
       </div>
 
-      <aside class="stack">
-        <div class="card" id="logo-card">
-          <label>Church logo (poster)</label>
-          <p class="tagline" style="margin: 0 0 0.5rem;">Upload a PNG, JPEG, WebP, or GIF. It is saved to the server and used on the generated poster.</p>
-          <div class="logo-row">
-            <input type="file" id="logo-file" accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" />
-            <button type="button" class="secondary" id="btn-upload-logo">Upload logo</button>
-          </div>
-          <p id="logo-status" style="font-family:var(--sans);font-size:0.82rem;margin:0.5rem 0 0;min-height:1.2em;" aria-live="polite"></p>
-          <div class="logo-preview" id="logo-preview-wrap"></div>
-        </div>
-        <div class="card">
-          <p class="tagline" style="margin: 0;">Tips</p>
-          <p class="meta" style="margin-top:0.5rem;">1) Load readings first to get hymn suggestions.</p>
-          <p class="meta" style="margin-top:0.35rem;">2) Choose full-song hymn entries for complete lyric slides.</p>
-          <p class="meta" style="margin-top:0.35rem;">3) Generate to download PPT + poster bundle.</p>
-        </div>
-      </aside>
     </div>
 
+  </div>
+    </div>
+  <div class="slide-modal" id="slide-modal">
+    <div class="slide-modal-box">
+      <div class="split-actions" style="margin-bottom:0.6rem;">
+        <button type="button" class="mini-btn" id="btn-close-slide-modal">Close</button>
+      </div>
+      <div id="slide-modal-content"></div>
+    </div>
   </div>
 
   <script>
@@ -476,17 +672,32 @@
 
     let previewSentences = [];
 
-    function fillHymnSelects(bySection) {
+    function songLabel(it, newIdsSet) {
+      const src = String(it.source || "").trim().toLowerCase();
+      const lang = String(it.language || "").trim().toLowerCase();
+      const hasLyrics = Boolean(it.has_lyrics);
+      const isNew = newIdsSet && newIdsSet.has(String(it.id || "").trim());
+      const bits = [String(it.title || "")];
+      if (lang === "english") bits.push("[EN]");
+      if (lang === "tagalog") bits.push("[TL]");
+      if (src === "web") bits.push("[WEB]");
+      if (hasLyrics) bits.push("[LYRICS]");
+      if (isNew) bits.push("[NEW]");
+      return bits.join(" ");
+    }
+
+    function fillHymnSelects(bySection, newIdsBySection) {
       const defOpt = '<option value="">— Default placeholder slides —</option>';
       const fill = (id, key) => {
         const el = $(id);
         if (!el) return;
         const items = (bySection && bySection[key]) || [];
+        const newSet = new Set((newIdsBySection && newIdsBySection[key]) || []);
         let h = defOpt;
         for (let i = 0; i < items.length; i++) {
           const it = items[i];
           const idv = String(it.id || "").replace(/"/g, "&quot;");
-          const tit = escapeHtml(String(it.title || ""));
+          const tit = escapeHtml(songLabel(it, newSet));
           h += '<option value="' + idv + '">' + tit + "</option>";
         }
         el.innerHTML = h;
@@ -496,6 +707,117 @@
       fill("sel-communion-1", "communion");
       fill("sel-communion-2", "communion");
       fill("sel-recessional", "recessional");
+      fill("sel-meditation", "meditation");
+    }
+
+    function fillOneHymnSelect(id, items, newIds) {
+      const el = $(id);
+      if (!el) return;
+      const defOpt = '<option value="">— Default placeholder slides —</option>';
+      const rows = items || [];
+      const newSet = new Set(newIds || []);
+      let h = defOpt;
+      for (let i = 0; i < rows.length; i++) {
+        const it = rows[i];
+        const idv = String(it.id || "").replace(/"/g, "&quot;");
+        const tit = escapeHtml(songLabel(it, newSet));
+        h += '<option value="' + idv + '">' + tit + "</option>";
+      }
+      el.innerHTML = h;
+    }
+
+    function applyRecommendedDefaults() {
+      const setIndexIfAvailable = (id, idx) => {
+        const el = $(id);
+        if (!el) return;
+        if (el.options.length > idx) el.selectedIndex = idx;
+      };
+      setIndexIfAvailable("sel-entrance", 1);
+      setIndexIfAvailable("sel-offertory", 1);
+      setIndexIfAvailable("sel-communion-1", 1);
+      setIndexIfAvailable("sel-communion-2", 2);
+      setIndexIfAvailable("sel-recessional", 1);
+      setIndexIfAvailable("sel-meditation", 0);
+    }
+
+    function applyServerDefaultSongs(dsp) {
+      const pick = (selId, key) => {
+        const el = $(selId);
+        const v = dsp && dsp[key];
+        if (!el || !v) return;
+        const want = String(v);
+        for (let i = 0; i < el.options.length; i++) {
+          if (String(el.options[i].value || "") === want) {
+            el.selectedIndex = i;
+            return;
+          }
+        }
+      };
+      pick("sel-entrance", "entrance");
+      pick("sel-offertory", "offertory");
+      pick("sel-communion-1", "communion_1");
+      pick("sel-communion-2", "communion_2");
+      pick("sel-recessional", "recessional");
+      pick("sel-meditation", "meditation");
+    }
+
+    function selectedValues() {
+      const textOf = (id) => {
+        const el = $(id);
+        if (!el) return "";
+        return el.options[el.selectedIndex] ? String(el.options[el.selectedIndex].textContent || "") : "";
+      };
+      return {
+        entrance: { id: $("sel-entrance").value || "", label: textOf("sel-entrance") },
+        offertory: { id: $("sel-offertory").value || "", label: textOf("sel-offertory") },
+        communion_1: { id: $("sel-communion-1").value || "", label: textOf("sel-communion-1") },
+        communion_2: { id: $("sel-communion-2").value || "", label: textOf("sel-communion-2") },
+        recessional: { id: $("sel-recessional").value || "", label: textOf("sel-recessional") },
+        meditation: { id: $("sel-meditation").value || "", label: textOf("sel-meditation") },
+      };
+    }
+
+    function pinnedMap() {
+      return {
+        entrance: $("pin-entrance").checked,
+        offertory: $("pin-offertory").checked,
+        communion_1: $("pin-communion-1").checked,
+        communion_2: $("pin-communion-2").checked,
+        recessional: $("pin-recessional").checked,
+        meditation: $("pin-meditation").checked,
+      };
+    }
+
+    function restoreSelectedValues(sel) {
+      if (!sel) return;
+      const appendIfMissing = (id, payload) => {
+        const val = payload && payload.id ? String(payload.id) : "";
+        const lbl = payload && payload.label ? String(payload.label) : "";
+        if (!val) return;
+        const el = $(id);
+        if (!el) return;
+        for (let i = 0; i < el.options.length; i++) {
+          if (String(el.options[i].value || "") === String(val)) return;
+        }
+        const opt = document.createElement("option");
+        opt.value = val;
+        opt.textContent = (lbl || val) + " [SELECTED]";
+        el.appendChild(opt);
+      };
+      const setIfExists = (id, payload) => {
+        const val = payload && payload.id ? String(payload.id) : "";
+        if (!val) return;
+        const el = $(id);
+        if (!el) return;
+        appendIfMissing(id, payload);
+        el.value = val;
+      };
+      setIfExists("sel-entrance", sel.entrance);
+      setIfExists("sel-offertory", sel.offertory);
+      setIfExists("sel-communion-1", sel.communion_1);
+      setIfExists("sel-communion-2", sel.communion_2);
+      setIfExists("sel-recessional", sel.recessional);
+      setIfExists("sel-meditation", sel.meditation);
     }
 
     async function refreshCommunityLogo() {
@@ -569,13 +891,16 @@
       return data;
     }
 
-    $("btn-preview").addEventListener("click", async () => {
+    let previewLoading = false;
+    async function loadReadings(auto = false) {
+      if (previewLoading) return;
       const date = $("mass-date").value.trim();
       if (!date) {
-        setStatus("Choose a mass date.", "error");
+        if (!auto) setStatus("Choose a mass date.", "error");
         return;
       }
-      setStatus("Loading…", "");
+      previewLoading = true;
+      setStatus(auto ? "Auto-loading readings…" : "Loading…", "");
       $("btn-preview").disabled = true;
       try {
         const data = await postJSON("/api/preview", { date });
@@ -613,6 +938,10 @@
         }
         panel.classList.add("visible");
         fillHymnSelects(data.songs_by_section || {});
+        const dsp = data.default_song_selections || {};
+        if (dsp && Object.keys(dsp).length) applyServerDefaultSongs(dsp);
+        else applyRecommendedDefaults();
+        applySongMixFromCurrent();
         songsBlock.classList.add("visible");
         const gLen = data.gospel_text_length;
         setStatus(
@@ -625,8 +954,20 @@
         setStatus(e.message || "Request failed.", "error");
       } finally {
         $("btn-preview").disabled = false;
+        previewLoading = false;
       }
+    }
+
+    $("btn-preview").addEventListener("click", () => loadReadings(false));
+
+    let autoLoadTimer = null;
+    $("mass-date").addEventListener("change", () => {
+      if (autoLoadTimer) clearTimeout(autoLoadTimer);
+      autoLoadTimer = setTimeout(() => loadReadings(true), 250);
     });
+
+    // Auto-load once on first render for today's date.
+    setTimeout(() => loadReadings(true), 200);
 
     function escapeHtml(s) {
       const d = document.createElement("div");
@@ -639,6 +980,257 @@
       if (r) return parseInt(r.value, 10);
       return null;
     }
+
+    function optionIds(selId) {
+      const el = $(selId);
+      if (!el) return [];
+      const ids = [];
+      for (let i = 0; i < el.options.length; i++) {
+        const v = String(el.options[i].value || "").trim();
+        if (v) ids.push(v);
+      }
+      return ids;
+    }
+
+    function currentIdsBySection() {
+      return {
+        entrance: optionIds("sel-entrance"),
+        offertory: optionIds("sel-offertory"),
+        communion: Array.from(new Set(optionIds("sel-communion-1").concat(optionIds("sel-communion-2")))),
+        recessional: optionIds("sel-recessional"),
+        meditation: optionIds("sel-meditation"),
+      };
+    }
+
+    function chooseByLanguage(items, targetLang, avoidIds) {
+      const rows = items || [];
+      for (let i = 0; i < rows.length; i++) {
+        const it = rows[i] || {};
+        const id = String(it.id || "").trim();
+        const lang = String(it.language || "").trim().toLowerCase();
+        if (!id || avoidIds.has(id)) continue;
+        if (targetLang === "english" && lang === "english") return id;
+        if (targetLang === "tagalog" && lang === "tagalog") return id;
+      }
+      return "";
+    }
+
+    function applySongMixFromCurrent() {
+      const mode = $("song-mix-mode").value;
+      if (mode !== "3en2tl") return;
+      const pins = pinnedMap();
+      const bySec = {
+        entrance: Array.from($("sel-entrance").options).slice(1).map((o) => ({ id: o.value, language: /\[TL\]/.test(o.textContent) ? "tagalog" : /\[EN\]/.test(o.textContent) ? "english" : "" })),
+        offertory: Array.from($("sel-offertory").options).slice(1).map((o) => ({ id: o.value, language: /\[TL\]/.test(o.textContent) ? "tagalog" : /\[EN\]/.test(o.textContent) ? "english" : "" })),
+        communion: Array.from($("sel-communion-1").options).slice(1).map((o) => ({ id: o.value, language: /\[TL\]/.test(o.textContent) ? "tagalog" : /\[EN\]/.test(o.textContent) ? "english" : "" })),
+        recessional: Array.from($("sel-recessional").options).slice(1).map((o) => ({ id: o.value, language: /\[TL\]/.test(o.textContent) ? "tagalog" : /\[EN\]/.test(o.textContent) ? "english" : "" })),
+      };
+      const picked = new Set();
+      const en1 = chooseByLanguage(bySec.entrance, "english", picked); if (en1) picked.add(en1);
+      const en2 = chooseByLanguage(bySec.offertory, "english", picked); if (en2) picked.add(en2);
+      const en3 = chooseByLanguage(bySec.recessional, "english", picked); if (en3) picked.add(en3);
+      const tl1 = chooseByLanguage(bySec.communion, "tagalog", picked); if (tl1) picked.add(tl1);
+      const tl2 = chooseByLanguage(bySec.communion, "tagalog", picked); if (tl2) picked.add(tl2);
+      if (en1 && !pins.entrance) $("sel-entrance").value = en1;
+      if (en2 && !pins.offertory) $("sel-offertory").value = en2;
+      if (en3 && !pins.recessional) $("sel-recessional").value = en3;
+      if (tl1 && !pins.communion_1) $("sel-communion-1").value = tl1;
+      if (tl2 && !pins.communion_2) $("sel-communion-2").value = tl2;
+    }
+
+    function newIdsDiff(oldMap, freshMap) {
+      const out = {};
+      const sections = ["entrance", "offertory", "communion", "recessional", "meditation"];
+      for (let i = 0; i < sections.length; i++) {
+        const sec = sections[i];
+        const oldSet = new Set(oldMap[sec] || []);
+        const newRows = (freshMap && freshMap[sec]) || [];
+        const onlyNew = [];
+        for (let j = 0; j < newRows.length; j++) {
+          const id = String(newRows[j].id || "").trim();
+          if (id && !oldSet.has(id)) onlyNew.push(id);
+        }
+        out[sec] = onlyNew;
+      }
+      return out;
+    }
+
+    async function refreshAllSongs() {
+      const date = $("mass-date").value.trim();
+      if (!date) {
+        setStatus("Choose a mass date first.", "error");
+        return;
+      }
+      const btn = $("btn-refresh-all-songs");
+      if (btn) btn.disabled = true;
+      const before = currentIdsBySection();
+      const oldSel = selectedValues();
+      const pins = pinnedMap();
+      setStatus("Refreshing all song recommendations…", "");
+      try {
+        const data = await postJSON("/api/songs/refresh-all", {
+          date,
+          current_ids: before,
+        });
+        const songsBySection = data.songs_by_section || {};
+        const newBySection = newIdsDiff(before, songsBySection);
+        fillOneHymnSelect("sel-entrance", songsBySection.entrance || [], newBySection.entrance || []);
+        fillOneHymnSelect("sel-offertory", songsBySection.offertory || [], newBySection.offertory || []);
+        fillOneHymnSelect("sel-communion-1", songsBySection.communion || [], newBySection.communion || []);
+        fillOneHymnSelect("sel-communion-2", songsBySection.communion || [], newBySection.communion || []);
+        fillOneHymnSelect("sel-recessional", songsBySection.recessional || [], newBySection.recessional || []);
+        fillOneHymnSelect("sel-meditation", songsBySection.meditation || [], newBySection.meditation || []);
+        // Keep selected choices that user pinned (or all manually selected by default behavior).
+        const keep = {
+          entrance: pins.entrance ? oldSel.entrance : oldSel.entrance,
+          offertory: pins.offertory ? oldSel.offertory : oldSel.offertory,
+          communion_1: pins.communion_1 ? oldSel.communion_1 : oldSel.communion_1,
+          communion_2: pins.communion_2 ? oldSel.communion_2 : oldSel.communion_2,
+          recessional: pins.recessional ? oldSel.recessional : oldSel.recessional,
+          meditation: pins.meditation ? oldSel.meditation : oldSel.meditation,
+        };
+        restoreSelectedValues(keep);
+        applySongMixFromCurrent();
+        setStatus("All sections refreshed. New recommendations are marked [NEW].", "ok");
+      } catch (e) {
+        setStatus(e.message || "Could not refresh songs.", "error");
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    $("btn-refresh-all-songs").addEventListener("click", refreshAllSongs);
+    $("btn-apply-song-mix").addEventListener("click", () => {
+      applySongMixFromCurrent();
+      setStatus("Applied song mix preference.", "ok");
+    });
+
+    async function refreshSlidePreview() {
+      const list = $("slide-preview-list");
+      list.innerHTML = '<p class="meta" style="margin:0;">Loading preview…</p>';
+      try {
+        const res = await fetch("/api/ppt-preview/refresh", { method: "POST" });
+        const data = await res.json();
+        const slides = data.slides || [];
+        const modeOut = String(data.mode || "");
+        const infoMsg = String(data.message || "");
+        if (!slides.length) {
+          list.innerHTML =
+            '<p class="meta" style="margin:0;">' + escapeHtml(infoMsg || "No slides yet. Generate deck first.") + "</p>";
+          return;
+        }
+        const mode = $("slide-preview-mode").value;
+        list.innerHTML = "";
+        if (infoMsg) {
+          const inf = document.createElement("p");
+          inf.className = "meta";
+          inf.style.margin = "0 0 0.5rem";
+          inf.textContent = infoMsg;
+          list.appendChild(inf);
+        }
+        for (let i = 0; i < slides.length; i++) {
+          const s = slides[i];
+          const card = document.createElement("div");
+          card.className = "slide-card";
+          const img = String(s.image_url || "");
+          const txt = String(s.text || "").trim();
+          card.innerHTML = '<div class="slide-head">Slide ' + escapeHtml(String(s.index || i + 1)) + "</div>";
+          const body = document.createElement("div");
+          if (img && modeOut !== "text") {
+            const el = document.createElement("img");
+            el.src = img;
+            el.alt = "Slide " + (s.index || i + 1);
+            el.style.width = "100%";
+            if (mode === "bundle") {
+              el.style.maxHeight = "130px";
+              el.style.objectFit = "cover";
+            } else {
+              el.style.maxHeight = "none";
+              el.style.objectFit = "contain";
+            }
+            el.style.border = "1px solid var(--line)";
+            el.style.borderRadius = "6px";
+            el.style.display = "block";
+            body.appendChild(el);
+          } else {
+            const compact = mode === "bundle" ? (txt.slice(0, 220) + (txt.length > 220 ? "…" : "")) : txt;
+            body.textContent = compact || "(Preview text not available)";
+          }
+          card.appendChild(body);
+          card.addEventListener("click", () => {
+            const mc = $("slide-modal-content");
+            mc.innerHTML = "";
+            const h = document.createElement("div");
+            h.style.fontWeight = "700";
+            h.style.marginBottom = "0.65rem";
+            h.textContent = "Slide " + (s.index || i + 1);
+            mc.appendChild(h);
+            if (img && modeOut !== "text") {
+              const big = document.createElement("img");
+              big.src = img;
+              big.alt = "Slide " + (s.index || i + 1);
+              big.style.width = "100%";
+              big.style.display = "block";
+              big.style.border = "1px solid var(--line)";
+              big.style.borderRadius = "8px";
+              mc.appendChild(big);
+            } else {
+              const tx = document.createElement("div");
+              tx.textContent = txt || "(No text content)";
+              tx.style.whiteSpace = "pre-wrap";
+              mc.appendChild(tx);
+            }
+            $("slide-modal").classList.add("visible");
+          });
+          list.appendChild(card);
+        }
+      } catch (_e) {
+        list.innerHTML = '<p class="meta" style="margin:0;">Preview unavailable.</p>';
+      }
+    }
+    $("btn-refresh-preview").addEventListener("click", refreshSlidePreview);
+    $("slide-preview-mode").addEventListener("change", refreshSlidePreview);
+    $("btn-close-slide-modal").addEventListener("click", () => $("slide-modal").classList.remove("visible"));
+    $("slide-modal").addEventListener("click", (e) => {
+      if (e.target && e.target.id === "slide-modal") $("slide-modal").classList.remove("visible");
+    });
+
+    $("btn-fetch-selected-lyrics").addEventListener("click", async () => {
+      const selections = [];
+      const map = [
+        ["entrance", "sel-entrance"],
+        ["offertory", "sel-offertory"],
+        ["communion", "sel-communion-1"],
+        ["communion", "sel-communion-2"],
+        ["recessional", "sel-recessional"],
+        ["meditation", "sel-meditation"],
+      ];
+      for (let i = 0; i < map.length; i++) {
+        const section = map[i][0];
+        const id = $(map[i][1]).value;
+        if (id) selections.push({ section, id });
+      }
+      if (!selections.length) {
+        setStatus("Select songs first before fetching lyrics.", "error");
+        return;
+      }
+      $("btn-fetch-selected-lyrics").disabled = true;
+      setStatus("Fetching lyrics for selected songs…", "");
+      try {
+        const data = await postJSON("/api/songs/fetch-lyrics", { selections });
+        setStatus(
+          "Lyrics sync done. Updated: " + (data.updated || 0) + ", skipped: " + (data.skipped || 0) + ".",
+          "ok"
+        );
+        if (confirm("Lyrics sync finished. Update PowerPoint preview now?")) {
+          await refreshSlidePreview();
+        }
+      } catch (e) {
+        setStatus(e.message || "Lyrics fetch failed.", "error");
+      } finally {
+        $("btn-fetch-selected-lyrics").disabled = false;
+      }
+    });
 
     $("btn-generate").addEventListener("click", async () => {
       const date = $("mass-date").value.trim();
@@ -660,11 +1252,13 @@
       const sc1 = $("sel-communion-1").value;
       const sc2 = $("sel-communion-2").value;
       const sr = $("sel-recessional").value;
+      const sm = $("sel-meditation").value;
       if (se) songs.entrance = se;
       if (so) songs.offertory = so;
       if (sc1) songs.communion_1 = sc1;
       if (sc2) songs.communion_2 = sc2;
       if (sr) songs.recessional = sr;
+      if (sm) songs.meditation = sm;
       if (Object.keys(songs).length) body.songs = songs;
       setStatus("Generating…", "");
       $("btn-preview").disabled = true;
@@ -674,6 +1268,14 @@
         setStatus("Done. " + (data.slide_excerpt ? '"' + data.slide_excerpt + '"' : ""), "ok");
         $("dl-pptx").href = data.pptx_url;
         $("dl-poster").href = data.poster_url;
+        const pp = data.poster_ppt_url;
+        if (pp) {
+          $("dl-poster-ppt").href = pp;
+          $("dl-poster-ppt").style.display = "";
+        } else {
+          $("dl-poster-ppt").removeAttribute("href");
+          $("dl-poster-ppt").style.display = "none";
+        }
         const zipRow = $("dl-zip-row");
         const z = data.zip_url;
         if (z) {
@@ -683,6 +1285,9 @@
           zipRow.style.display = "none";
         }
         downloads.classList.add("visible");
+        if (confirm("Generation complete. Update PowerPoint preview now?")) {
+          await refreshSlidePreview();
+        }
       } catch (e) {
         setStatus(e.message || "Generation failed.", "error");
         downloads.classList.remove("visible");

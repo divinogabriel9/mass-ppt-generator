@@ -224,16 +224,20 @@ def generate_mass_poster(
     gospel_quote: str = "",
     entrance_song_title: str = "",
     communion_song_titles: str = "",
+    output_stem: str = "mass_poster",
 ) -> Tuple[Path, Path]:
     """
-    Writes ``outputs/mass_poster.png`` (1080×1350, social / feed) and
-    ``outputs/mass_poster_16x9.png`` (1920×1080, presentation-friendly).
+    Writes ``outputs/{output_stem}.png`` (1080×1350, social / feed) and
+    ``outputs/{output_stem}_16x9.png`` (1920×1080, presentation-friendly).
+
+    Default ``output_stem="mass_poster"`` preserves legacy filenames.
 
     Returns ``(social_path, ppt_aspect_path)``.
     """
     _OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    social_path = _OUTPUT_DIR / "mass_poster.png"
-    ppt_path = _OUTPUT_DIR / "mass_poster_16x9.png"
+    stem = (output_stem or "mass_poster").strip() or "mass_poster"
+    social_path = _OUTPUT_DIR / f"{stem}.png"
+    ppt_path = _OUTPUT_DIR / f"{stem}_16x9.png"
 
     comm = (community_name or "").strip() or get_community_name()
 

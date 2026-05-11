@@ -25,6 +25,7 @@ from services.hymn_library import get_hymn, recommend_sections, section_candidat
 from services.song_selection import default_song_selections_for_date, filter_songs_rows_en_tl_only
 from services.liturgical_calendar import get_liturgical_color
 from services.lectionary_service import get_liturgical_data
+from services.media_naming import mass_export_stem
 from services.web_hymn_discovery import discover_hymns_for_readings
 from services.lyrics_fetcher import ensure_lyrics_for_song
 
@@ -314,6 +315,7 @@ class GenerationResult:
     gospel_quote: str = ""
     slide_count: int = 0
     liturgical_color: Optional[Mapping[str, Any]] = None
+    export_stem: str = ""
 
 
 def _poster_template_arg(name: str) -> PosterTemplate:
@@ -332,6 +334,8 @@ def generate_mass_media(
     poster_template: str = "liturgical_color",
     include_social_exports: bool = True,
     include_gospel_art: bool = True,
+    include_ai_mass_poster: bool = True,
+    ai_poster_style: str = "cinematic",
     community_name: Optional[str] = None,
     song_selections: Optional[Mapping[str, str]] = None,
 ) -> GenerationResult:
@@ -382,7 +386,36 @@ def generate_mass_media(
         if sid:
             ensure_lyrics_for_song(sec, sid)
 
-    slide_count = generate_mass_ppt(
+    community_display = get_community_name()
+    stem = mass_export_stem(community_display, date, title, season)
+
+    tpl = _poster_template_arg(poster_template)
+    logo = get_logo_path()
+    entrance_title = _hymn_title_for_poster("entrance", picks.get("entrance", ""))
+    comm_titles: list[str] = []
+    for ck in ("communion_1", "communion_2"):
+        t = _hymn_title_for_poster("communion", picks.get(ck, ""))
+        if t:
+            comm_titles.append(t)
+    communion_line = " · ".join(comm_titles)
+
+    # Liturgical 16×9 poster PNG must exist before building the deck so it can be embedded as a slide.
+    poster_path, poster_ppt_path = generate_mass_poster(
+        title=title,
+        gospel_reference=gospel_ref,
+        celebrant=celebrant,
+        date=date,
+        template=tpl,
+        liturgical_color=liturgical_color,
+        logo_path=logo,
+        community_name=community_display,
+        gospel_quote=slide_line,
+        entrance_song_title=entrance_title,
+        communion_song_titles=communion_line,
+        output_stem=stem,
+    )
+
+    slide_count, pptx_path = generate_mass_ppt(
         title=title,
         gospel_reference=gospel_ref,
         gospel_quote=slide_line or gospel_text,
@@ -401,46 +434,31 @@ def generate_mass_media(
         second_reading_text=data.get("second_reading_text") or "",
         liturgical_color=liturgical_color,
         song_selections=picks,
+        output_stem=stem,
+        liturgical_poster_png=poster_ppt_path,
     )
 
-    tpl = _poster_template_arg(poster_template)
-    logo = get_logo_path()
-    community_display = get_community_name()
-    entrance_title = _hymn_title_for_poster("entrance", picks.get("entrance", ""))
-    comm_titles: list[str] = []
-    for ck in ("communion_1", "communion_2"):
-        t = _hymn_title_for_poster("communion", picks.get(ck, ""))
-        if t:
-            comm_titles.append(t)
-    communion_line = " · ".join(comm_titles)
-
-    poster_path, poster_ppt_path = generate_mass_poster(
-        title=title,
-        gospel_reference=gospel_ref,
-        celebrant=celebrant,
-        date=date,
-        template=tpl,
-        liturgical_color=liturgical_color,
-        logo_path=logo,
-        community_name=community_display,
-        gospel_quote=slide_line,
-        entrance_song_title=entrance_title,
-        communion_song_titles=communion_line,
-    )
-
+    _root = Path(__file__).resolve().parent
+    _out = _root / "outputs"
     if include_social_exports:
-        export_social_variants(poster_path)
-
+        export_social_variants(poster_path, output_dir=_out, prefix=stem)
     if include_gospel_art:
         ref_short = (gospel_ref or "").strip()[:90] if gospel_ref else ""
         render_gospel_moment(
+            out_path=_root / "outputs" / f"{stem}_gospel_moment.png",
             liturgical_color=liturgical_color,
             line1="Gospel",
             line2=ref_short,
         )
 
-    _root = Path(__file__).resolve().parent
-    pptx_path = _root / "outputs" / "mass_presentation.pptx"
+    if include_ai_mass_poster:
+        from generators.ai_poster_generator import create_mass_poster
+
+        try:
+            create_mass_poster(date, celebrant_name=celebrant, style=ai_poster_style)
+        except Exception:
+            # Best-effort: liturgical deck + PNG posters must still succeed without AI export.
+            pass
 
     preview = slide_line[:180] + ("…" if len(slide_line) > 180 else "")
 
@@ -460,4 +478,5 @@ def generate_mass_media(
         gospel_quote=slide_line,
         slide_count=slide_count,
         liturgical_color=liturgical_color,
+        export_stem=stem,
     )

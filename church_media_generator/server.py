@@ -21,6 +21,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from pipeline import (
+    GenerationResult,
     PreviewPayload,
     fetch_preview,
     generate_mass_media,
@@ -35,6 +36,7 @@ from services.community_config import (
     uploads_dir,
 )
 from services.lyrics_fetcher import fetch_and_store_for_selection
+from services.ppt_preview_render import render_ppt_preview_pngs
 from services.song_catalog import import_song_rows, import_titles
 
 # Optional outputs produced alongside mass_poster.png (Phase 3)
@@ -63,20 +65,61 @@ _MAX_LOGO_BYTES = 2_500_000
 _BUNDLE_NAME = "mass_bundle.zip"
 
 
-def _write_mass_bundle_zip() -> None:
-    """Pack latest PPT, poster, social sizes, and gospel art into one zip."""
+def _ai_poster_download_urls() -> dict[str, str]:
+    """Stable URLs under ``/media/posters/`` for Hugging Face layout exports."""
+    base = _OUTPUT_DIR / "posters"
+    out: dict[str, str] = {}
+    mapping = {
+        "instagram": "mass_poster_instagram.png",
+        "story": "mass_poster_story.png",
+        "facebook": "mass_poster_facebook.png",
+    }
+    for key, fname in mapping.items():
+        p = base / fname
+        if p.is_file():
+            out[key] = f"/media/posters/{fname}"
+    return out
+
+
+def _latest_pptx_path() -> Optional[Path]:
+    """Most recently modified deck in ``outputs/`` (supports stem-based filenames)."""
+    cands = [p for p in _OUTPUT_DIR.glob("*.pptx") if p.is_file()]
+    if not cands:
+        return None
+    return max(cands, key=lambda p: p.stat().st_mtime)
+
+
+def _write_mass_bundle_zip(result: GenerationResult) -> None:
+    """Pack generated PPT, posters, stem-based social PNGs, gospel art, and optional extras."""
     out = _OUTPUT_DIR / _BUNDLE_NAME
+    entries: list[tuple[Path, str]] = []
+    for attr in ("pptx_path", "poster_path", "poster_ppt_path"):
+        p = getattr(result, attr, None)
+        if p and Path(p).is_file():
+            pp = Path(p)
+            entries.append((pp, pp.name))
+    if result.poster_path:
+        parent = Path(result.poster_path).parent
+        stem = Path(result.poster_path).stem
+        for child in sorted(parent.glob(f"{stem}_*.png")):
+            if child.is_file() and all(o[0] != child for o in entries):
+                entries.append((child, child.name))
+    if result.export_stem:
+        g = _OUTPUT_DIR / f"{result.export_stem}_gospel_moment.png"
+        if g.is_file() and all(o[0] != g for o in entries):
+            entries.append((g, g.name))
+    post_dir = _OUTPUT_DIR / "posters"
+    if post_dir.is_dir():
+        for child in sorted(post_dir.glob("*.png")):
+            if child.is_file() and all(o[0] != child for o in entries):
+                entries.append((child, f"posters/{child.name}"))
+    for name in _BUNDLE_OPTIONAL:
+        p = _OUTPUT_DIR / name
+        if p.is_file() and all(o[0] != p for o in entries):
+            entries.append((p, name))
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as zf:
-        for path, arc in (
-            (_OUTPUT_DIR / "mass_presentation.pptx", "mass_presentation.pptx"),
-            (_OUTPUT_DIR / "mass_poster.png", "mass_poster.png"),
-        ):
-            if path.is_file():
-                zf.write(path, arcname=arc)
-        for name in _BUNDLE_OPTIONAL:
-            p = _OUTPUT_DIR / name
-            if p.is_file():
-                zf.write(p, arcname=name)
+        for path, arc in entries:
+            zf.write(path, arcname=arc)
 
 
 app = FastAPI(title="Church Media Generator")
@@ -142,6 +185,15 @@ class GenerateBody(BaseModel):
     )
     include_social_exports: bool = Field(True)
     include_gospel_art: bool = Field(True)
+    include_ai_mass_poster: bool = Field(
+        True,
+        description="Run Hugging Face AI poster export to outputs/posters/ (uses token if set).",
+    )
+    ai_poster_style: str = Field(
+        "cinematic",
+        max_length=64,
+        description="HF hero art style key from data/styles.json (e.g. renaissance, stained_glass).",
+    )
     community_name: Optional[str] = Field(None, max_length=240)
     songs: Optional[SongSelection] = None
 
@@ -214,8 +266,8 @@ def _extract_ppt_text_slides(ppt: Path) -> list[dict[str, Any]]:
 @app.post("/api/ppt-preview/refresh")
 def api_ppt_preview_refresh() -> dict[str, Any]:
     """Render PPT slides to PNG images for in-app visual preview."""
-    ppt = _OUTPUT_DIR / "mass_presentation.pptx"
-    if not ppt.is_file():
+    ppt = _latest_pptx_path()
+    if not ppt or not ppt.is_file():
         return {"ok": True, "mode": "text", "slides": [], "message": "Generate deck first."}
     soffice = _resolve_soffice_bin()
     if not soffice:
@@ -230,35 +282,27 @@ def api_ppt_preview_refresh() -> dict[str, Any]:
         if p.is_file():
             p.unlink(missing_ok=True)
 
-    cmd = [
-        soffice,
-        "--headless",
-        "--convert-to",
-        "png",
-        "--outdir",
-        str(_PREVIEW_DIR),
-        str(ppt),
-    ]
-    try:
-        subprocess.run(cmd, check=True, capture_output=True, text=True, timeout=90)
-    except subprocess.TimeoutExpired as exc:
-        raise HTTPException(status_code=500, detail="Preview rendering timed out.") from exc
-    except subprocess.CalledProcessError as exc:
-        detail = (exc.stderr or exc.stdout or "Preview rendering failed.").strip()
-        raise HTTPException(status_code=500, detail=detail) from exc
-
-    # Typical output file is "mass_presentation.png" (first slide only on some builds)
-    # or one file per slide on newer builds/plugins. We expose all PNGs found.
-    files = sorted(_PREVIEW_DIR.glob("*.png"))
-    slides = [{"index": i + 1, "image_url": f"/preview/{f.name}?t={int(f.stat().st_mtime)}"} for i, f in enumerate(files)]
-    if not slides:
+    png_paths, pdf_msg = render_ppt_preview_pngs(ppt, _PREVIEW_DIR, soffice_bin=soffice)
+    if not png_paths:
         return {
             "ok": True,
             "mode": "text",
             "slides": _extract_ppt_text_slides(ppt),
-            "message": "Could not render images from this deck; showing text fallback.",
+            "message": (pdf_msg or "Could not render slide images.") + " Showing text fallback.",
         }
-    return {"ok": True, "mode": "image", "slides": slides}
+
+    ts = int(png_paths[0].stat().st_mtime) if png_paths else 0
+    slides = [
+        {
+            "index": i + 1,
+            "image_url": f"/preview/{f.name}?t={ts}&v={i}",
+        }
+        for i, f in enumerate(png_paths)
+    ]
+    msg = pdf_msg or ""
+    if not msg.strip():
+        msg = "Full-deck preview (PDF rasterization)."
+    return {"ok": True, "mode": "image", "slides": slides, "message": msg}
 
 
 @app.get("/health")
@@ -347,12 +391,14 @@ def api_generate(body: GenerateBody) -> Any:
         poster_template=body.poster_template,
         include_social_exports=body.include_social_exports,
         include_gospel_art=body.include_gospel_art,
+        include_ai_mass_poster=body.include_ai_mass_poster,
+        ai_poster_style=body.ai_poster_style.strip() or "cinematic",
         community_name=body.community_name.strip() if body.community_name else None,
         song_selections=song_map,
     )
     if not result.ok:
         raise HTTPException(status_code=400, detail=result.error or "Generation failed.")
-    _write_mass_bundle_zip()
+    _write_mass_bundle_zip(result)
     zip_ready = (_OUTPUT_DIR / _BUNDLE_NAME).is_file()
     lc = result.liturgical_color
     liturgical_payload: Optional[dict[str, Any]] = None
@@ -364,7 +410,12 @@ def api_generate(body: GenerateBody) -> Any:
             "rgb": list(lc.get("rgb", ())),
         }
     poster_ppt = result.poster_ppt_path
-    return {
+    ppt_url = f"/media/{result.pptx_path.name}" if result.pptx_path and result.pptx_path.is_file() else None
+    poster_url = f"/media/{result.poster_path.name}" if result.poster_path and result.poster_path.is_file() else None
+    poster_ppt_url = (
+        f"/media/{poster_ppt.name}" if poster_ppt and Path(poster_ppt).is_file() else None
+    )
+    payload: dict[str, Any] = {
         "ok": True,
         "title": result.title,
         "gospel_reference": result.gospel_reference,
@@ -373,13 +424,17 @@ def api_generate(body: GenerateBody) -> Any:
         "liturgical_color": liturgical_payload,
         "selected_songs": result.selected_songs,
         "slide_count": result.slide_count,
-        "pptx_url": "/media/mass_presentation.pptx",
-        "poster_url": "/media/mass_poster.png",
-        **(
-            {"poster_ppt_url": "/media/mass_poster_16x9.png"}
-            if poster_ppt and poster_ppt.is_file()
-            else {}
-        ),
+        "export_stem": result.export_stem,
+    }
+    if ppt_url:
+        payload["pptx_url"] = ppt_url
+    if poster_url:
+        payload["poster_url"] = poster_url
+    if poster_ppt_url:
+        payload["poster_ppt_url"] = poster_ppt_url
+    payload["ai_poster_urls"] = _ai_poster_download_urls()
+    return {
+        **payload,
         **(
             {"zip_url": f"/media/{_BUNDLE_NAME}"}
             if zip_ready

@@ -203,6 +203,25 @@ def _layout_blank(prs: Presentation):
     return prs.slide_layouts[-1]
 
 
+def _add_liturgical_poster_full_slide(prs: Presentation, png_path: Path) -> None:
+    """
+    Embed the 16×9 liturgical poster (PNG) as one full-bleed slide for projection.
+
+    Expects ``png_path`` to match the slide aspect ratio (1920×1080 → 20″×11.25″ deck).
+    """
+    p = Path(png_path)
+    if not p.is_file():
+        return
+    slide = prs.slides.add_slide(_layout_blank(prs))
+    slide.shapes.add_picture(
+        str(p.resolve()),
+        left=0,
+        top=0,
+        width=prs.slide_width,
+        height=prs.slide_height,
+    )
+
+
 def _set_slide_bg(slide, rgb: RGBColor):
     fi = slide.background.fill
     fi.solid()
@@ -737,7 +756,9 @@ def generate_mass_ppt(
     quote_max_chars: int = 400,
     liturgical_color: Optional[Mapping[str, Any]] = None,
     song_selections: Optional[Mapping[str, Any]] = None,
-) -> int:
+    output_stem: str = "mass_presentation",
+    liturgical_poster_png: Optional[Path] = None,
+) -> tuple[int, Path]:
     prs = Presentation()
     prs.slide_width = SLIDE_WIDTH
     prs.slide_height = SLIDE_HEIGHT
@@ -939,12 +960,17 @@ def generate_mass_ppt(
         _add_marked_chunked(prs, "Recessional", GFCC.RECESSIONAL_1 + "\n" + GFCC.RECESSIONAL_2, theme)
     _add_divider_cover(prs, **ctx)
 
+    # Full-screen 16×9 parish poster (generated before the deck — see pipeline order).
+    if liturgical_poster_png is not None:
+        _add_liturgical_poster_full_slide(prs, liturgical_poster_png)
+
     if quote_attribution and g_line:
         _add_marked_slide(prs, "Scripture note", f"<<D>>{quote_attribution}", theme)
 
     _OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    out = _OUTPUT_DIR / "mass_presentation.pptx"
+    stem = (output_stem or "mass_presentation").strip() or "mass_presentation"
+    out = _OUTPUT_DIR / f"{stem}.pptx"
     n_slides = len(prs.slides)
     prs.save(out)
     print(f"✅ PowerPoint created: {out} ({n_slides} slides)")
-    return n_slides
+    return n_slides, out

@@ -556,6 +556,16 @@
             <label for="church-name">Church name (top-left on every slide)</label>
             <input type="text" id="church-name" name="church_name" placeholder="Parish or community name" maxlength="240" />
           </div>
+          <div class="row">
+            <label for="ai-poster-style">AI poster art style (Hugging Face hero)</label>
+            <select id="ai-poster-style" class="mini-select" style="max-width: 100%;">
+              <option value="cinematic" selected>Cinematic</option>
+              <option value="renaissance">Renaissance</option>
+              <option value="stained_glass">Stained glass</option>
+              <option value="realistic">Realistic</option>
+              <option value="modern">Modern</option>
+            </select>
+          </div>
           <div class="actions">
             <button type="button" class="secondary" id="btn-preview">Load readings</button>
             <button type="button" class="primary" id="btn-generate">Generate</button>
@@ -626,6 +636,12 @@
             <a href="#" id="dl-pptx" download>PowerPoint only</a>
             <a href="#" id="dl-poster" download>Poster (social PNG)</a>
             <a href="#" id="dl-poster-ppt" download>Poster (16×9)</a>
+          </div>
+          <div class="row-dl" id="dl-ai-posters-row" style="display:none; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center;">
+            <span class="meta" style="margin:0;">AI poster (HF layouts)</span>
+            <a href="#" id="dl-ai-instagram" download style="display:none;">Instagram</a>
+            <a href="#" id="dl-ai-story" download style="display:none;">Story</a>
+            <a href="#" id="dl-ai-facebook" download style="display:none;">Facebook</a>
           </div>
         </div>
       </div>
@@ -1260,6 +1276,8 @@
       if (sr) songs.recessional = sr;
       if (sm) songs.meditation = sm;
       if (Object.keys(songs).length) body.songs = songs;
+      const aiStyle = $("ai-poster-style");
+      if (aiStyle && aiStyle.value) body.ai_poster_style = aiStyle.value;
       setStatus("Generating…", "");
       $("btn-preview").disabled = true;
       $("btn-generate").disabled = true;
@@ -1284,6 +1302,27 @@
         } else {
           zipRow.style.display = "none";
         }
+        const ap = data.ai_poster_urls || {};
+        const aiRow = $("dl-ai-posters-row");
+        const aiIg = $("dl-ai-instagram");
+        const aiSt = $("dl-ai-story");
+        const aiFb = $("dl-ai-facebook");
+        let anyAi = false;
+        function wireAiLink(el, url) {
+          if (!el) return;
+          if (url) {
+            el.href = url;
+            el.style.display = "";
+            anyAi = true;
+          } else {
+            el.removeAttribute("href");
+            el.style.display = "none";
+          }
+        }
+        wireAiLink(aiIg, ap.instagram);
+        wireAiLink(aiSt, ap.story);
+        wireAiLink(aiFb, ap.facebook);
+        if (aiRow) aiRow.style.display = anyAi ? "flex" : "none";
         downloads.classList.add("visible");
         if (confirm("Generation complete. Update PowerPoint preview now?")) {
           await refreshSlidePreview();

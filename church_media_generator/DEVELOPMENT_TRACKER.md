@@ -1,80 +1,28 @@
-# Development tracker
+# Development Tracker
 
-_Last updated: 2026-05-09 — recommendation engine + multilingual catalog + in-app preview upgrades._
+_Last updated: 2026-05-11_
 
-How to read this: **✅** = implemented in the current codebase in a useful form. **⬜** = not built yet (or only a stub / placeholder).
+## Done
 
----
+- [x] Lectionary fetch + cache (SQLite) with Year A/B/C and season color logic.
+- [x] Full Mass deck generation flow with hymn lyrics slides and community/church branding.
+- [x] Poster generation (`classic_white` + `liturgical_color`) plus social exports (square/story/OG).
+- [x] AI poster pipeline wired to Hugging Face (`Tongyi-MAI/Z-Image-Turbo`) with style presets from `data/styles.json`.
+- [x] AI style option supported in CLI and API (`cinematic`, `renaissance`, `stained_glass`, `modern`, `realistic`).
+- [x] AI hero file naming now includes date + style (example: `2026-05-24_cinematic_hero.png`).
+- [x] Prompt flow improved for visual scenes (avoid quoted verse text; no on-image text intent).
+- [x] AI poster download links exposed in web UI (`/media/posters/...`) alongside normal poster downloads.
+- [x] PPT preview improved to support full deck thumbnails (PDF raster path + fallback text mode).
+- [x] ZIP bundle includes generated outputs (PPT, posters, social assets, preview artifacts as available).
 
-## PHASE 1 — FOUNDATION
+## In Progress / Needs Monitoring
 
-| Item | Status |
-|------|--------|
-| Folder structure | ✅ |
-| Python basics | ✅ |
-| PowerPoint generation | ✅ (`generators/powerpoint.py`) |
-| Liturgical detection | ✅ (season/calendar + Sunday cycle: `core/`, `services/liturgical_calendar.py`, `lectionary_service`) |
-| Basic poster generation | ✅ (`generators/poster_generator.py` — 1080×1350 PNG) |
+- [ ] Tune AI prompt quality per Gospel type (parables vs narrative scenes) for more consistent subject framing.
+- [ ] Add clearer UI feedback when placeholder image is used (token/API/model failure reason).
 
----
+## Next (Simple Priority)
 
-## PHASE 2 — CATHOLIC LOGIC
-
-| Item | Status |
-|------|--------|
-| Lectionary database | ✅ **SQLite** — `data/lectionary.sqlite` via `services/lectionary_store.py` (cache on fetch; `LECTIONARY_IGNORE_CACHE=1` bypasses read) |
-| Gospel lookup | ✅ (`lectionary_service`, `usccb_*`, gospel fallback) |
-| Year A / B / C logic | ✅ (`core/liturgical_calendar.py` → `sunday_lectionary_cycle`) |
-| Season colors | ✅ (`services/liturgical_calendar.py` → deck/poster theme) |
-| Song recommendation engine | ✅ **Hybrid** — local catalog + optional web discovery + one-click refresh (`/api/songs/refresh-all`) with dedupe/non-repeat attempts |
-
----
-
-## PHASE 3 — VISUAL ENGINE
-
-| Item | Status |
-|------|--------|
-| AI Gospel images | ✅ **Kickstart** — non-AI art in liturgical colors (`generators/gospel_moment.png`); swap module later for true AI |
-| Poster templates | ✅ **`classic_white`** & **`liturgical_color`** (+ logo placement) |
-| Social media auto-resize | ✅ **IG square 1080, Stories 1080×1920, OG 1200×630** (`export_social_variants`) |
-| Church logo system | ✅ **`data/community.json`** — `community_name`, `logo_path` — footer text in PPT; logo on poster when path set |
-
----
-
-## PHASE 4 — FULL MASS SYSTEM
-
-| Item | Status |
-|------|--------|
-| Full Mass slide flow | ✅ (GFCC-style flow: `gfcc_flow_content.py` + generator) |
-| Lyrics slides | ✅ (library-backed full-song lyrics with dedicated hymn slide styling, section picks in web UI) |
-| Prayer database | ⬜ (fixed text blocks / Missal placeholders; not a queryable DB) |
-| Multilingual toggle | ✅ **Initial** — language-tagged songs (`[EN]`, `[TL]`) + mix preset (`3 English + 2 Tagalog`) in UI |
-
----
-
-## PHASE 5 — REAL PRODUCT
-
-| Item | Status |
-|------|--------|
-| User accounts | ⬜ |
-| Church profiles | ⬜ |
-| Cloud storage | ⬜ |
-| Subscription system | ⬜ |
-| Deployment | ✅ **Partial** — `Dockerfile`, FastAPI web UI (`server.py`), `/health`; ⬜ hosted PaaS / CI as you prefer later |
-
----
-
-## Extra already in repo
-
-- **CLI** — `main.py`.
-- **Web app** — UI + `/api/preview`, `/api/generate`, ZIP includes PPT, poster, social PNGs, `gospel_moment.png` when present.
-- **UI polish** — modern SaaS-style card layout in `templates/index.html` while preserving all workflow buttons.
-- **Hymn projection tuning** — centered, adaptive lyric sizing and balanced logo/name branding in `generators/powerpoint.py`.
-- **Song catalog DB workflow** — bulk title import (`/api/songs/import-list`), selected-song lyrics fetch/save (`/api/songs/fetch-lyrics`), pin-choice toggles, and refresh highlighting.
-- **Preview workflow** — in-app slide preview panel with refresh control, bundle/per-slide modes, click-to-enlarge modal, and confirmation prompts after generate/lyrics sync.
-- **Gospel excerpt logic** — `gospel_quote_extractor`.
-- **Generate options (JSON)** — `poster_template`, `include_social_exports`, `include_gospel_art`.
-
----
-
-When you finish an item, change **⬜** → **✅** and adjust notes if needed.
+- [ ] Add prayer database (currently fixed text/flow, not queryable yet).
+- [ ] Add user accounts + church profiles.
+- [ ] Add cloud storage/deployment pipeline (hosted environment + CI/CD).
+- [ ] Add subscription/billing layer (if productized).
